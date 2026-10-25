@@ -1,0 +1,45 @@
+{{Wikipédia|id=pt}}
+
+={{-pt-}}=
+==Substantivo==
+{{flex.pt|fs=resiliência|fp=resiliências}}
+{{proparoxítona aparente|re|si|li|ên|ci|a}}, {{gramática|f}}
+# {{escopo|pt|Física}} [[propriedade]] do [[material]] de [[retornar]] à [[forma]] ou [[posição]] [[original]] uma vez cessada a [[tensão]] sobre o mesmo
+# {{escopo|pt|Figurado}} [[habilidade]] que uma [[pessoa]] [[desenvolver|desenvolve]] para [[resistir]], [[lidar]] e [[reagir]] de modo [[positivo]] em [[situação|situações]] [[adverso|adversas]]
+#* ''Com essa disposição, e uma enorme '''resiliência''', o NPD agora pretende ser o guarda-chuva sob o qual os diversos grupos extremistas de direita no país podem se abrigar, no que eles têm chamado de “pacto pela Alemanha”.'' {{OESP|2006|outubro|22}}
+
+===Tradução===
+{{tradini}}
+* {{trad|de|Elastizität|Rückfederung}}
+* {{trad|fr|résilience}}
+{{tradmeio}}
+* {{trad|en|resiliency}}
+* {{trad|it|resilienza}}
+* {{t|ja|我慢||gaman}}
+{{tradfim}}
+
+===Verbetes relacionados===
+* [[resiliente]]
+
+=={{etimologia|pt}}==
+{{etimo2|en|resilience|pt}}
+
+==Ver também==
+===No Wikcionário===
+{{verTambém.Ini}}
+* [[estamina]]
+{{verTambém.NovaColuna}}
+* [[estâmina]]
+{{verTambém.Fim}}
+
+==Ligações externas==
+* {{Aulete}}
+* {{Michaelis}}
+* {{Dicio}}
+* {{DLPO}}
+* {{Infopédia}}
+* {{PLP}}
+* {{VOLPABL}}
+* {{Forvo|resiliência|pt}}
+
+[[Categoria:Substantivo (Português)]]

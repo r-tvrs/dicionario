@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Dicionário</title>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<main id="buscar">
+  <header class="barra">
+    <form id="busca" role="search">
+      <label class="campo">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="20.5" y2="20.5"/></svg>
+        <input id="q" type="search" placeholder="Buscar palavra" aria-label="Buscar palavra" enterkeyhint="search" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+      </label>
+    </form>
+  </header>
+  <div id="conteudo" class="conteudo"><p class="dica">Digite uma palavra</p></div>
+</main>
+
+<main id="historico" hidden>
+  <header class="barra"><h1 class="titulo">Histórico</h1></header>
+  <div class="vazio">
+    <h2>Nenhuma busca ainda</h2>
+    <p>As palavras que você buscar aparecem aqui.</p>
+  </div>
+</main>
+
+<nav class="abas">
+  <button id="aba-buscar" type="button" aria-current="page">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="20.5" y2="20.5"/></svg>
+    <span>Buscar</span>
+  </button>
+  <button id="aba-historico" type="button">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
+    <span>Histórico</span>
+  </button>
+</nav>
+</body>
+</html>

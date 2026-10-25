@@ -1,0 +1,21 @@
+{{grafiaPtbr|efémero}}
+
+={{-pt-}}=
+==Adjetivo==
+{{flex.pt|ms=efêmero|mp=efêmeros|fs=efêmera|fp=efêmeras}}
+{{proparoxítona|e|fê|me|ro}}, {{g|m}}
+# ver [[efémero]]
+
+===Verbetes derivados===
+* [[efemeridade]]
+
+=={{etimologia|pt}}==
+{{etimo2|grc|εφήμερος|pt}}
+
+=={{pronúncia|pt}}==
+===[[Brasil]]===
+====[[Ajuda:Guia de pronúncia/Português/Carioca|Carioca]]====
+*[[AFI]]: /e.ˈfe.me.ɾu/
+*[[X-SAMPA]]: /e."fe.me.4u/
+
+[[Categoria:Adjetivo (Português)]]

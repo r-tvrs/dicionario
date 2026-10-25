@@ -1,0 +1,66 @@
+={{-pt-}}=
+==Verbo==
+{{oxítona|pro|cras|ti|nar}}
+# [[deixar]] para [[fazer]] algo [[mais]] [[tarde]]
+
+===Conjugação===
+{{conj/pt|procrastin|ar}}
+
+===Sinônimos===
+{{verTambém.Ini}}
+* [[adiar]]
+* [[deferir]]
+* [[demorar]]
+* [[empurrar com a barriga]]
+{{verTambém.NovaColuna}}
+* [[espaçar]]
+* [[protelar]]
+* [[usar de delongas]]
+{{verTambém.Fim}}
+
+===Tradução===
+{{tradini}}
+* {{trad|af|uitstel}}
+* {{trad|de|verzögern}}
+* {{trad|an|procastinar}}
+* {{trad|eu|geroratu}}
+* {{trad|ca|procrastinar}}
+* {{trad|cs|odkládat}}
+* {{trad|hr|otezati}}
+* {{trad|da|tøve}}
+* {{trad|sk|odkladať}}
+* {{trad|es|retrasar|procrastinar}}
+* {{trad|et|venitama}}
+{{tradmeio}}
+* {{trad|fi|lykätä}}
+* {{trad|fr|procrastiner}}
+* {{trad|nl|talmen}}
+* {{trad|hu|halogat}}
+* {{trad|en|procrastinate}}
+* {{trad|it|procrastinare}}
+* {{trad|lv|atlikšana}}
+* {{trad|pl|zwlekać}}
+* {{trad|sr|одуговлачити|odugovlačiti}}
+* {{trad|sv|dyka}}
+{{tradfim}}
+
+=={{etimologia|pt}}==
+{{etimo2|la|procrastinare|pt}}
+
+[[Categoria:Verbo (Português)]]
+
+
+={{-ca-}}=
+==Verbo==
+'''procrastinar'''
+# [[procrastinar#Português|procrastinar]]
+
+[[Categoria:Verbo (Catalão)]]
+
+
+={{-es-}}=
+==Verbo==
+'''procrastinar'''
+# [[procrastinar#Português|procrastinar]]
+
+[[Categoria:Verbo (Espanhol)]]

@@ -1,0 +1,77 @@
+={{-pt-}}=
+==Substantivo==
+{{flex.pt|fs=saudade|fp=saudades}}
+{{paroxítona|sau|da|de}}, {{gramática|f}}
+# [[memória]] ou [[recordação]] [[grato|grata]] de [[pessoa]]s, [[familiar]]es ou [[objeto]]s
+# {{escopo|pt|Sentimento}} [[sentimento]] experimentado entre duas ou mais pessoas que estão [[distante]]s, ou que ficam muito [[tempo]] sem se ver
+# [[lembrança]]
+# lembrança de pessoas ou coisas distantes ou não mais existentes, acompanhada da vontade de tornar a vê-las ou possuí-las
+# condição em que se tem sentimento de perda, lastimação, amargura, diante de aparente possibilidade de poder ter obtido o que desejava e parecia alcançável, que não se concretizou
+#*: ''Ela mudara de cidade e eu fiquei na '''saudade'''. Achei-me o cara mais injustiçado do planeta terra.'' (Cássio Ironaldo De Moraes, ''Infância Sem Maldades'', Clube de Autores, pág. 97, 2010)
+
+===Expressões===
+* '''[[Saudade do Iguaçu]]''':
+
+===Tradução===
+{{tradini}}
+* {{trad|de|Sehnsucht|Heimweh}}
+* {{trad|kea|sodade}}
+* {{trad|kw|hireth}}
+* {{trad|eo|saŭdado}}
+* {{trad|fi|koti-ikävä}}
+{{tradmeio}}
+* {{trad|fr|nostalgie|manque}}
+* {{trad|cy|hiraeth}}
+* {{trad|en|longing|yearning|homesickness}}
+* {{trad|la|solitate}}
+* {{trad|sv|hemlängtan}}
+{{tradfim}}
+
+===Verbetes derivados===
+* [[saudoso]]
+
+=={{etimologia|pt}}==
+{{etimo2|la|solitas|pt|solitas, solitatis}}
+
+=={{pronúncia|pt}}==
+===Brasil===
+* AFI: {{AFI|/saw.ˈda.dʒi/}}
+** AFI: {{AFI|/saw.ˈda.de/}} {{escopo2|Região Sul}}
+{{áudio|id=pt|Pt-br-saudade.ogg}}
+
+===Portugal===
+* AFI: {{AFI|/sɐw.ˈda.dɨ/}}
+
+==Ver também==
+===No Wikcionário===
+====Topônimos====
+* [[Saudades]]
+
+{{sentimentos/pt}}
+
+===Na Wikipédia===
+* {{interwiki|w|pt|saudade}}
+
+[[Categoria:Substantivo (Português)]]
+
+
+={{-gl-}}=
+==Substantivo==
+{{flex.gl|fs=saudade|fp=saudades}}
+{{paroxítona|sau|da|de|id=gl}}, {{gramática|f}}
+# [[saudade#{{pt}}|saudade]], [[nostalgia]] por alguém ou algo
+# {{escopo|gl|Sentimento}} [[saudade#{{gl}}|saudade]]
+
+==={{PEPB|Hipónimo|Hipônimo|inline=1}}===
+* [[morriña#{{gl}}|morriña]]
+
+==={{PEPB|Sinónimo|Sinônimo|inline=1}}===
+* [[señardade#{{gl}}|señardade]], [[soidade#{{gl}}|soidade]]
+
+=={{etimologia|gl}}==
+: Por alterações fonéticas da palavra galaico-portuguesa {{etimo|roa-gpm|soidade}} ou {{etimo|roa-gpm|soydade}}, esta proveniente do latim {{etimo|la|solitas}} {{etimo|la|solitatem}} "solidão", influenciadas pela palavra árabe {{etimo|ar|سَوْدَاء⁩}} ''(sawdāh)'', "melancolia".
+
+=={{pronúncia|gl}}==
+* AFI: {{AFI|/sawˈðaðe/}}
+
+[[Categoria:Substantivo (Galego)]]

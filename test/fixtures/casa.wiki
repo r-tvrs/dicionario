@@ -1,0 +1,387 @@
+[[Imagem:Jehay - Ancienne maison.JPG|thumb|right|250px|{{centro|Casa<sup>1 e 2</sup>}}]]
+{{confundir|CASA|caça|caza}}
+
+={{-pt-}}=
+==Substantivo==
+{{flex.pt|fs=casa|fp=casas}}
+{{paroxítona|ca|sa}}, {{gramática|f}}, {{datação|1221|pt}}
+# [[construção]] que [[servir|serve]] de [[moradia]]
+#* ''Sua '''casa''' é muito bonita!''
+#* ''Essa '''casa''' é muito grande.''
+# [[domicílio]], [[residência]]
+#* ''Minha '''casa''' é este apartamento aqui.''
+# [[quantidade]] de [[dígito]]s de um [[número]]
+#* ''Esse número tem duas '''casas''' decimais''.
+# quantificação graduativa métrica
+#: '''2004''', Olgário Paulo Vogt, ''Abrindo o baú de memórias: o Museu de Venâncio Aires conta a história do município'', EDUNISC, página: 25
+#*: ''A erva-mate ocupa uma área de aproximadamente 4.700 hectares, e a produção anual do produto fica na '''casa''' dos 25 milhões de quilos.''
+# [[orifício]] por onde passa o [[botão]] da [[roupa]] ao ser abotoada
+#*''Esse botão é maior que a largura da '''casa''' de minha blusa.''
+# [[família]] [[nobre]]
+# lugar onde se comercializa produto específico
+#* ''Vou à '''casa''' dos parafusos para comprar uma arruela especial.''
+#* ''Voltou à '''casa''' do camarão para degustar mais um prato delicioso.''
+
+===Aumentativos===
+{{verTambém.Ini}}
+* [[casão]]
+* [[casarão]]
+{{verTambém.NovaColuna}}
+* [[casona]]
+* [[mansão]]
+{{verTambém.Fim}}
+
+===Diminutivos===
+{{verTambém.Ini}}
+* [[casebre]]
+* [[casinha]]
+{{verTambém.NovaColuna}}
+* [[casinhola]]
+* [[casita]]
+{{verTambém.Fim}}
+
+===Expressões===
+* '''[[a casa caiu]]''': o erro foi descoberto; o que estava escondido foi revelado.
+* '''[[a casa cair]]''': verdade oculta ser revelada.
+* '''[[casa da mãe Joana]]''': local onde tudo é permitido.
+* '''[[casa da sogra]]''': onde tudo é permitido.
+* '''[[casa da vó]]''': local onde se pode fazer o que quiser.
+* '''[[casa das primas]]''': boate, local de prostituição.
+* '''[[casa de banho]]''': divisão da casa onde se faz a higiene pessoal
+* '''[[casa de caba]]''': moradia das abelhas, expressão usada quando se encontra uma colméia no norte. Nome popular muito usado.
+* '''[[casa de carne]]''': estabelecimento que comercializa carne.
+* '''[[casa de chá]]''': 
+* '''[[casa de detenção]]''': 
+* '''[[casa de forno]]''': casa no Norte e Nordeste usada para fazer farinha de mandioca (aipim).
+* '''[[casa de instantinho]]''': {{escopo2|Brasileirismo, Santa Catarina, Florianópolis}} [[motel]].
+* '''[[casa de luz vermelha]]''': boate, local destinado a prostituição.
+* '''[[casa de máquinas]]''': local onde se localizam as máquinas que movem um navio ou os elevadores de um prédio.
+* '''[[casa de ópera]]''': teatro onde se apresenta ópera.
+* '''[[casa de oração]]''' ou lugar de oração
+* '''[[casa de Pedro]]''': lugar onde muitos mandam
+* '''[[casa de ração]]''': estabelecimento que comercializa ração.
+* '''[[casa de repouso]]''': lugar onde pessoas de idade que não têm onde morar habitam.
+* '''[[casa de saúde]]''': 
+* '''[[casa de tolerância]]''': casa destinada à prostituição.
+* '''[[casa de vidro]]''': casa com paredes de vidro
+* '''[[casa do caralho]]''': local muito distante, de difícil acesso.
+* '''[[casa do chapéu]]''': local muito longe de se chegar, de difícil acesso
+* '''[[casa do chico]]''': lugar distante, perto da baixa da égua.
+* '''[[casa grande]]''': local onde morava a família branca, antônimo de senzala.
+* '''[[casa noturna]]''': local onde se realiza eventos sociais, baladas, encontro de boêmios, entre outras. 
+* '''[[cumeeira da casa]]''': 
+* '''[[dona de casa]]''': 
+* '''[[em casa de ferreiro, espeto de amieiro]]''': o conhecimento e as práticas aplicadas ao ambiente coletivo quase nunca são aplicados no ambiente privado do lar; essa expressão é usada quando queremos dizer que uma pessoa é hábil para determinada coisa mas não usa essa habilidade a favor próprio.
+* '''[[em casa de ferreiro, espeto de pau]]''': 
+* '''[[hoje a casa vai cair]]''': algum conflito ou confusão vai ocorrer
+* '''[[prata da casa]]''': 
+* '''[[quem casa quer casa]]''': diz-se que quem casa não quer morar com outros.
+* '''[[santo de casa não faz milagre]]''': se diz quando  não se tem confiança em alguém da própria terra natal para resolver determinada questão.
+
+===Sinônimos===
+De '''4''':
+{{verTambém.Ini}}
+* [[nível]]
+{{verTambém.NovaColuna}}
+* [[patamar]]
+{{verTambém.Fim}}
+
+===Tradução===
+{{tradini|De 1 e 2 (local de moradia)}}
+* {{trad|af|huis}}
+* {{trad|ay|uta}}
+* {{trad|sq|shtëpi}}
+* {{trad|gsw|Hausz}}
+* {{trad|de|Haus|Wohnung}}
+* {{trad|am|ቤት}}
+* {{trad|ar|بَيْت|منزل|دار|سكن|مأوى|مسكن|بيت}}
+* {{trad|an|casa|fogaril|cambra}}
+* {{trad|arn|ruka}}
+* {{trad|eu|etxe}}
+* {{trad|bn|বািড়}}
+* {{trad|bi|haos}}
+* {{trad|bor|ti}}
+* {{trad|br|bai}}
+* {{trad|bg|къща}}
+* {{trad|ca|casa}}
+* {{trad|cs|dům|chata}}
+* {{trad|zh|房子|家}}
+* {{trad|cod|uka}}
+* {{trad|ko|집}}
+* {{trad|kw|chy}}
+* {{trad|co|casa}}
+* {{trad|hr|kuca}}
+* {{trad|ku|xanî}}
+* {{trad|da|hus}}
+* {{trad|sk|dom}}
+* {{trad|sl|hiša|dóm}}
+* {{trad|es|casa|techo|residencia|vivienda}}
+* {{trad|eo|domo|hejmo}}
+* {{trad|et|maja|elamu}}
+* {{trad|fo|hús}}
+* {{trad|fi|talo|koti}}
+* {{trad|vls|huis}}
+* {{trad|fr|maison|chez-soi|domicile|logis}}
+* {{trad|fy|huis}}
+* {{trad|fur|cjase|abitazion}}
+* {{trad|gd|taigh}}
+* {{trad|gl|casa}}
+* {{trad|cy|tŷ}}
+* {{t|ka|სახლი||sakhli}}
+* {{trad|el|σπίτι|οίκος|κατοικία}}
+* {{trad|grc|οἰκία}}
+* {{trad|gn|óga|oga}}
+* {{trad|gu|ઘર|સદન}}
+* {{trad|he|בית}}
+* {{trad|hi|मकान|घर|सदन}}
+* {{trad|nl|huis}}
+* {{trad|hu|ház|lakás}}
+* {{trad|yi|הױז}}
+* {{trad|id|rumah}}
+* {{trad|en|house|home}}
+* {{trad|yo|ilé}}
+* {{trad|ga|teach}}
+* {{trad|is|hús}}
+* {{trad|it|casa|abitazione|duomo}}
+* {{trad|yua|otoch}}
+* {{trad|ja|家}}
+* {{trad|kam|mumba}}
+* {{trad|la|domus|aedes}}
+* {{trad|lv|maja}}
+{{tradmeio}}
+* {{trad|lij|cà}}
+* {{trad|li|hoes}}
+* {{trad|lt|namas}}
+* {{trad|lb|Haus}}
+* {{trad|mk|куќа}}
+* {{trad|mg|trano}}
+* {{trad|mt|dar}}
+* {{trad|gv|thie}}
+* {{trad|mr|घर|सदन}}
+* {{trad|mas|engaji}}
+* {{trad|mwl|casa}}
+* {{trad|mdf|kud}}
+* {{trad|nap|casa}}
+* {{trad|nci|calli}}
+* {{trad|ngu|kajli}}
+* {{trad|nd|indlu}}
+* {{trad|nb|hus}}
+* {{trad|oj|indlu}}
+* {{trad|osa|hci}}
+* {{trad|pap|kas}}
+* {{trad|fa|خانه|مسکن}}
+* {{trad|pms|ca'}}
+* {{trad|pl|dom}}
+* {{trad|prg|buttan}}
+* {{trad|pa|ਕੋਠੀ|ਸਦਨ}}
+* {{trad|qu|wasi|huasi}}
+* {{trad|ky|үй}}
+* {{trad|raj|टापरो}}
+* {{trad|rap|hare}}
+* {{trad|ro|casă}}
+* {{trad|ru|дом}} (dom)
+* {{trad|se|viessu|báiki}}
+* {{trad|sg|dā}}
+* {{trad|sa|गृह}}
+* {{trad|sro|domu}}
+* {{trad|sr|кућа}}
+* {{trad|scn|scurmu}}
+* {{trad|so|guri|aqal|sar|daar}}
+* {{trad|sw|nyumba}}
+* {{trad|sv|hus|hem}}
+* {{trad|tl|báhay|tiráhan}}
+* {{trad|th|บ้าน}}
+* {{trad|crh|üy}}
+* {{trad|te|ఇల్లు}}
+* {{trad|tet|uma}}
+* {{trad|tn|ntlo}}
+* {{trad|tu|oca}}
+* {{trad|tr|ev}}
+* {{trad|uk|дім}}
+* {{trad|wa|måjhone}}
+* {{trad|ur|گھر|سال|مکان}}
+* {{trad|uz|uy}}
+* {{trad|val|casa|llar|habitació}}
+* {{trad|vec|casa}}
+* {{trad|vi|cái nhà}}
+* {{trad|vo|dom}}
+* {{trad|vro|kodo}}
+* {{trad|xh|ikhaya|indlu}}
+* {{trad|yol|heouse}}
+* {{trad|zu|indlu}}
+{{tradfim}}
+
+{{tradini|De 6 (família)}}
+* {{trad|sv|ätt}}
+{{tradmeio}}
+{{tradfim}}
+
+==Forma verbal==
+{{paroxítona|ca|sa}}
+# terceira pessoa do singular do presente do indicativo do verbo [[casar]]
+#* ''Eu acho que ela não se '''casa'''.''
+#* ''Quem '''casa''' quer casa.''
+
+{{aviso.flexão|casar}}
+
+=={{etimologia|pt}}==
+{{etimo2|la|casa|pt}}, possivelmente de uma raiz indo-europeia "skad" que significava «abrigo, lugar protegido».
+
+=={{pronúncia|pt}}==
+===Brasil===
+====Carioca====
+* [[AFI]]: /ˈka.zɐ/
+* [[X-SAMPA]]: /"ka.z6/
+===Portugal===
+{{ouvir|pt-pt-casa.ogg}}
+
+==Ver também==
+===No Wikcionário===
+{{verTambém.Ini}}
+{{verTambém.Ligações|cas-}}
+* [[casa-alugada]]
+* [[casa-branquense]]
+* [[casa-da-festa]]
+* [[casa-da-mãe-joana]]
+* [[casa-de-abelha]]
+* [[casa-de-mina]]
+{{verTambém.NovaColuna}}
+* [[casa-de-nagô]]
+* [[casa-de-orates]]
+* [[casa-de-pouca-farinha]]
+* [[casa-de-santo]]
+* [[casa-dos-homens]]
+* [[casa-forte]]
+* [[casa-grande]]
+{{verTambém.NovaColuna}}
+* [[casa-grandense]]
+* [[casa-mestra]]
+* [[casa-novense]]
+* [[casa-pedrense]]
+* [[casa-piano]]
+* [[casa-suspeita]]
+* [[casa-telhense]]
+{{verTambém.NovaColuna}}
+* [[casa-torre]]
+* [[casa-velhense]]
+* [[casa-verdense]]
+* [[casamata]]
+* [[casão]]
+* [[casaril]]
+* [[casebre]]
+{{verTambém.Fim}}
+
+===Na Wikipédia===
+* {{interwiki|w|pt|casa}}
+
+==Ligações externas==
+* {{Aulete}}
+* {{Michaelis}}
+* {{DicioAberto}}
+* {{DLPO}}
+* {{Infopédia}}
+* {{PLP}}
+* {{VOLPABL}}
+
+==Anagramas==
+<!-- índice para anagramas: pt: aacs -->
+# [[acas]]
+# [[asca]]
+# [[saca]]
+
+[[Categoria:Substantivo (Português)]]
+[[Categoria:Forma verbal (Português)]]
+[[Categoria:Entrada com imagem (Português)]]
+
+={{-an-}}=
+==Substantivo==
+'''casa'''
+# [[casa#Português|casa]]
+
+[[Categoria:Substantivo (Aragonês)]]
+[[Categoria:Entrada com imagem (Aragonês)]]
+
+
+={{-ca-}}=
+==Substantivo==
+'''casa'''
+# [[casa#Português|casa]]
+
+[[Categoria:Substantivo (Catalão)]]
+[[Categoria:Entrada com imagem (Catalão)]]
+
+
+={{-co-}}=
+==Substantivo==
+'''casa'''
+# [[casa#Português|casa]]
+
+[[Categoria:Substantivo (Corso)]]
+[[Categoria:Entrada com imagem (Corso)]]
+
+
+={{-es-}}=
+==Substantivo==
+'''ca.sa''', {{gramática|f}}
+# [[casa#Português|casa]]
+
+==Ligações externas==
+* {{DLE-RAE}}
+
+[[Categoria:Substantivo (Espanhol)]]
+[[Categoria:Entrada com imagem (Espanhol)]]
+
+
+={{-gl-}}=
+==Substantivo==
+'''casa'''
+# [[casa#Português|casa]]
+
+[[Categoria:Substantivo (Galego)]]
+[[Categoria:Entrada com imagem (Galego)]]
+
+
+={{-it-}}=
+==Substantivo==
+'''casa'''
+# [[casa#Português|casa]]
+
+[[Categoria:Substantivo (Italiano)]]
+[[Categoria:Entrada com imagem (Italiano)]]
+
+
+={{-mwl-}}=
+==Substantivo==
+{{flex.mwl|fs=casa|fp=casas}}
+{{paroxítona|ca|sa|língua=mwl}}, {{gramática|f}}
+# [[casa#Português|casa]]
+
+[[Categoria:Substantivo (Mirandês)]]
+[[Categoria:Entrada com imagem (Mirandês)]]
+
+
+={{-nap-}}=
+==Substantivo==
+'''casa'''
+# [[casa#Português|casa]]
+
+[[Categoria:Substantivo (Napolitano)]]
+[[Categoria:Entrada com imagem (Napolitano)]]
+
+
+={{-val-}}=
+==Substantivo==
+'''casa'''
+# [[casa#Português|casa]]
+
+[[Categoria:Substantivo (Valenciano)]]
+[[Categoria:Entrada com imagem (Valenciano)]]
+
+
+={{-vec-}}=
+==Substantivo==
+'''casa'''
+# [[casa#Português|casa]]
+
+[[Categoria:Substantivo (Vêneto)]]
+[[Categoria:Entrada com imagem (Vêneto)]]
