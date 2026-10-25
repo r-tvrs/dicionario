@@ -1,6 +1,7 @@
 import { lerVerbete } from './verbete.js';
 import { CATEGORIA, portugues, completar, parecidas } from './sugestoes.js';
 import { historico, quando } from './historico.js';
+import { palavraDoDia } from './palavra-do-dia.js';
 
 const API = 'https://pt.wiktionary.org/w/api.php';
 const $ = (id) => document.getElementById(id);
@@ -48,9 +49,19 @@ function ir(palavra) {
   buscar(palavra);
 }
 
-async function buscar(palavra) {
+// trilha: palavras de onde se chegou tocando em sinônimos, para o "‹ voltar".
+async function buscar(palavra, trilha = []) {
   const id = ++buscaAtual;
   palavraAtual = palavra;
+  $('buscar').classList.remove('inicio');
+  const exibir = (...filhos) => {
+    const anterior = trilha.at(-1);
+    if (!anterior) return mostrar(...filhos);
+    const voltar = el('button', 'voltar', `‹ ${anterior}`);
+    voltar.type = 'button';
+    voltar.addEventListener('click', () => buscar((q.value = anterior), trilha.slice(0, -1)));
+    mostrar(voltar, ...filhos);
+  };
   const esqueleto = setTimeout(() => {
     const sk = el('div', 'esqueleto');
     for (const w of ['46%', '100%', '94%', '58%', '100%', '72%']) {
@@ -58,7 +69,7 @@ async function buscar(palavra) {
       linha.style.width = w;
       sk.append(linha);
     }
-    mostrar(el('h1', 'palavra', palavra), sk);
+    exibir(el('h1', 'palavra', palavra), sk);
   }, 300);
   let pag;
   try {
@@ -73,9 +84,9 @@ async function buscar(palavra) {
     const div = estado('Sem conexão', 'Verifique sua internet e tente de novo.');
     const botao = el('button', 'acao', 'Tentar de novo');
     botao.type = 'button';
-    botao.addEventListener('click', () => buscar(palavra));
+    botao.addEventListener('click', () => buscar(palavra, trilha));
     div.append(botao);
-    return mostrar(div);
+    return exibir(div);
   } finally {
     clearTimeout(esqueleto);
   }
@@ -83,7 +94,7 @@ async function buscar(palavra) {
   const verbete = pag?.verbete;
   if (!verbete?.classes.length) {
     const div = estado('Palavra não encontrada', `Nenhum verbete para “${palavra}”.`);
-    mostrar(div);
+    exibir(div);
     const quis = parecidas(palavra, await titulosPt(palavra).catch(() => []));
     if (id !== buscaAtual || !quis.length) return;
     const ul = el('ul');
@@ -119,16 +130,34 @@ async function buscar(palavra) {
     const chips = el('div', 'chips');
     for (const s of verbete.sinonimos) {
       const b = el('button', null, s);
-      b.addEventListener('click', () => buscar((q.value = s)));
+      b.addEventListener('click', () => buscar((q.value = s), [...trilha, pag.titulo]));
       chips.append(b);
     }
     sec.append(el('h2', null, 'Sinônimos'), chips);
     artigo.append(sec);
   }
   artigo.append(el('p', 'fonte', 'Fonte: Wikcionário · CC BY-SA 4.0'));
-  mostrar(artigo);
+  exibir(artigo);
   hist.adicionar(pag.titulo);
 }
+
+// Tela inicial: palavra do dia com a 1ª acepção; sem rede, só a palavra.
+async function inicio() {
+  const id = ++buscaAtual;
+  palavraAtual = '';
+  const palavra = palavraDoDia();
+  const card = el('button', 'dia');
+  card.type = 'button';
+  card.append(el('p', 'dia-rotulo', 'Palavra do dia'), el('h1', 'palavra', palavra));
+  card.addEventListener('click', () => ir(palavra));
+  $('buscar').classList.add('inicio');
+  mostrar(card);
+  const pag = await pagina(palavra).catch(() => null);
+  const classe = pag?.verbete?.classes[0];
+  if (id !== buscaAtual || !classe?.acepcoes.length) return;
+  card.append(el('p', 'classe', classe.classe), el('p', 'dia-def', classe.acepcoes[0].texto));
+}
+inicio();
 
 $('busca').addEventListener('submit', (e) => {
   e.preventDefault();
@@ -190,6 +219,7 @@ limparBusca.addEventListener('mousedown', (e) => e.preventDefault());
 limparBusca.addEventListener('click', () => {
   q.value = '';
   q.dispatchEvent(new Event('input'));
+  inicio();
   q.focus();
 });
 cancelar.addEventListener('mousedown', (e) => e.preventDefault());
