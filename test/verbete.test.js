@@ -88,3 +88,9 @@ test('procrastinar: 7 sinônimos; saudade sem sinônimos', () => {
   ]);
   assert.deepEqual(lerVerbete(fixture('saudade')).sinonimos, []);
 });
+
+test('efêmero: remissão para efémero; verbete comum sem remissão', () => {
+  assert.equal(lerVerbete(fixture('efêmero')).remissao, 'efémero');
+  assert.equal(lerVerbete(fixture('casa')).remissao, undefined);
+  assert.equal(lerVerbete('={{-pt-}}=\n==Verbo==\n# Ver  [[a|b]]\n').remissao, 'a');
+});

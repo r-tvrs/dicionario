@@ -11,12 +11,13 @@ export function limpar(texto) {
     .trim();
 }
 
-// Recebe o wikitext da página e devolve as classes da seção em português, ou null se não houver.
+// Recebe o wikitext da página e devolve as classes da seção em português (e a remissão, se for só "ver [[x]]"), ou null se não houver.
 export function lerVerbete(wikitext) {
   const pt = wikitext.split(/^=\{\{-pt-\}\}=\s*$/m)[1]?.split(/^=[^=]/m)[0];
   if (pt === undefined) return null;
   const classes = [];
   const sinonimos = [];
+  let remissao;
   let atual = null;
   let emSinonimos = false;
   for (const linha of pt.split('\n')) {
@@ -34,6 +35,7 @@ export function lerVerbete(wikitext) {
     } else if (emSinonimos && linha.startsWith('*')) {
       sinonimos.push(limpar(linha.slice(1)));
     } else if (atual && /^#[^*:]/.test(linha)) {
+      remissao ??= linha.match(/^#\s*ver\s+\[\[([^\]|]+)/i)?.[1].trim();
       const etiqueta = linha.match(/\{\{escopo\|pt\|([^|}]+)/)?.[1].trim();
       atual.acepcoes.push({
         texto: limpar(linha.slice(1)),
@@ -46,5 +48,8 @@ export function lerVerbete(wikitext) {
       if (exemplos?.length < 2) exemplos.push(limpar(linha.replace(/^#\*:?/, '')));
     }
   }
-  return { classes: classes.filter((c) => c.acepcoes.length), sinonimos: sinonimos.filter(Boolean) };
+  const comAcepcoes = classes.filter((c) => c.acepcoes.length);
+  // Só é remissão quando "ver [[x]]" é a única acepção da página.
+  if (comAcepcoes.flatMap((c) => c.acepcoes).length !== 1) remissao = undefined;
+  return { classes: comAcepcoes, sinonimos: sinonimos.filter(Boolean), remissao };
 }

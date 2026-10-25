@@ -76,3 +76,5 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .abas button { flex: 1; height: 49px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: var(--text3); }
 .abas button[aria-current] { color: var(--ink); }
 .abas span { font-size: 10px; line-height: 12px; font-weight: 500; }
+.acao { margin-top: 24px; height: 48px; padding: 0 24px; border-radius: 14px; background: var(--ink); color: var(--bg); font-size: 17px; font-weight: 600; }
+.acao:active { opacity: .7; }

@@ -24,6 +24,12 @@ function estado(titulo, texto) {
   return div;
 }
 
+async function pagina(titulo) {
+  const url = `${API}?action=parse&prop=wikitext&format=json&formatversion=2&redirects=1&origin=*&page=${encodeURIComponent(titulo)}`;
+  const dados = await (await fetch(url)).json();
+  return dados.parse && { titulo: dados.parse.title, verbete: lerVerbete(dados.parse.wikitext) };
+}
+
 async function buscar(palavra) {
   const id = ++buscaAtual;
   const esqueleto = setTimeout(() => {
@@ -35,21 +41,30 @@ async function buscar(palavra) {
     }
     mostrar(el('h1', 'palavra', palavra), sk);
   }, 300);
-  const url = `${API}?action=parse&prop=wikitext&format=json&formatversion=2&redirects=1&origin=*&page=${encodeURIComponent(palavra)}`;
-  let dados;
+  let pag;
   try {
-    dados = await (await fetch(url)).json();
+    pag = await pagina(palavra);
+    // Segue no máximo 1 remissão ("ver efémero"); se o destino não existir, fica a original.
+    if (pag?.verbete?.remissao) {
+      const destino = await pagina(pag.verbete.remissao);
+      if (destino?.verbete?.classes.length) pag = destino;
+    }
   } catch {
-    if (id === buscaAtual) mostrar(estado('Sem conexão', 'Verifique sua internet e tente de novo.'));
-    return;
+    if (id !== buscaAtual) return;
+    const div = estado('Sem conexão', 'Verifique sua internet e tente de novo.');
+    const botao = el('button', 'acao', 'Tentar de novo');
+    botao.type = 'button';
+    botao.addEventListener('click', () => buscar(palavra));
+    div.append(botao);
+    return mostrar(div);
   } finally {
     clearTimeout(esqueleto);
   }
   if (id !== buscaAtual) return;
-  const verbete = dados.parse && lerVerbete(dados.parse.wikitext);
+  const verbete = pag?.verbete;
   if (!verbete?.classes.length) return mostrar(estado('Palavra não encontrada', `Nenhum verbete para “${palavra}”.`));
   const artigo = el('article');
-  artigo.append(el('h1', 'palavra', dados.parse.title));
+  artigo.append(el('h1', 'palavra', pag.titulo));
   for (const { classe, acepcoes } of verbete.classes) {
     const ol = el('ol', 'defs');
     for (const a of acepcoes) {
