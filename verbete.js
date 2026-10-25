@@ -1,5 +1,5 @@
 // Seções de nível 2 da parte em português que não são classes gramaticais.
-const NAO_CLASSES = ['Ver também', 'Ligações externas', 'Anagramas', 'Referências', 'Notas'];
+const NAO_CLASSES = ['Ver também', 'Ligações externas', 'Anagramas', 'Anagrama', 'Referências', 'Notas', 'Etimologia', 'Pronúncia'];
 
 export function limpar(texto) {
   // Remove de dentro para fora, para predefinições aninhadas.
@@ -20,7 +20,9 @@ export function lerVerbete(wikitext) {
   for (const linha of pt.split('\n')) {
     const h2 = linha.match(/^==([^=].*?)==\s*$/);
     if (h2) {
-      const nome = h2[1].trim();
+      // O cabeçalho pode vir como predefinição: {{Substantivo|pt}} → Substantivo; <sup>1</sup> sai.
+      let nome = h2[1].replace(/<sup>.*?<\/sup>/g, '').trim().replace(/^\{\{([^|}]+)\|pt\}\}$/, '$1');
+      nome = nome[0].toUpperCase() + nome.slice(1);
       atual = nome.includes('{{') || NAO_CLASSES.includes(nome) ? null : { classe: nome, acepcoes: [] };
       if (atual) classes.push(atual);
     } else if (linha.startsWith('===')) {

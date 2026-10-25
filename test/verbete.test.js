@@ -54,3 +54,14 @@ test('predefinições aninhadas somem por inteiro', () => {
   const { classes } = lerVerbete('={{-pt-}}=\n==Substantivo==\n# {{a|{{b}}}} [[x]]\n');
   assert.deepEqual(textos(classes[0]), ['x']);
 });
+
+test('escola: classe em predefinição ({{Substantivo|pt}}); etimologia e pronúncia ignoradas', () => {
+  const { classes } = lerVerbete(fixture('escola'));
+  assert.deepEqual(classes.map((c) => c.classe), ['Substantivo']);
+  assert.equal(classes[0].acepcoes[0].texto, 'instituição social que tem a missão de educar');
+});
+
+test('cabeçalho com <sup> vira texto puro; "Anagrama" no singular ignorado', () => {
+  const { classes } = lerVerbete('={{-pt-}}=\n==Substantivo<sup>1</sup>==\n# a\n==Anagrama==\n# b\n');
+  assert.deepEqual(classes.map((c) => c.classe), ['Substantivo']);
+});

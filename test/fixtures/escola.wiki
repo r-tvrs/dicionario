@@ -1,0 +1,202 @@
+={{-pt-}}=
+=={{Substantivo|pt}}==
+{{flex.pt|fs=escola|fp=escolas}}
+{{paroxítona|es|co|la}}, {{g|f}}
+# [[instituição]] [[social]] que [[ter|tem]] a [[missão]] de [[educar]]
+# [[casa]], [[edificação]] onde se [[ensinar|ensina]]
+# [[conjunto]] dos [[professor]]es ([[docente]]s) e dos [[aluno]]s ([[discente]]s)
+# [[doutrina]]
+===Expressões===
+* {{escopo2|Brasil, Santa Catarina}} '''[[escola do Balduíno]]''': escola hipotética onde estudaram todos os que não sabem nada. Exemplo: diante de alguma bobagem, pergunta-se, "Onde foi que aprendeste isto? Só pode ser na escola do Balduíno".
+==={{-varort-}}===
+* [[eschola]] {{escopoGrafiaUsadaAte1911}}
+===Sinônimos===
+De '''1''' e '''2''' (instituição social + edificação):
+{{verTambém.Ini}}
+* [[educandário]]
+{{verTambém.NovaColuna}}
+* instituição de ensino
+{{verTambém.Fim}}
+De '''4''' (doutrina):
+{{verTambém.Ini}}
+* [[aprendizagem]]
+* [[corrente]]
+{{verTambém.NovaColuna}}
+* [[estilo]]
+* [[método]]
+{{verTambém.NovaColuna}}
+* [[seita]]
+* [[sistema]]
+{{verTambém.Fim}}
+===Tradução===
+{{tradini|De 1 e 2 (instituição social + edificação)}}
+* {{trad|af|skool}}
+* {{trad|ay|yatichaña uta}}
+* {{trad|sq|shkollë}}
+* {{t|de|Schule|f}}
+* {{t|ar|مدرسة|f|madrassa}}
+* {{trad|an|escuela}}
+* {{trad|arn|kimeltuwe ruka}}
+* {{trad|hy|ուսումնարան}}
+* {{trad|ast|escola}}
+* {{trad|az|məktəb}}
+* {{trad|eu|eskola|ikastola}}
+* {{t|be|школа||škóla}}
+* {{trad|bi|sukul}}
+* {{trad|br|skol}}
+* {{trad|bg|училище|школо|даскало}}
+* {{trad|ca|escola}}
+* {{trad|ce|ишкол}}
+* {{trad|cs|škola}}
+* {{trad|zh|学校||xuéxiào}}
+* {{trad|sn|chikóro}}
+* {{trad|ko|학교}}
+* {{trad|hr|škola}}
+* {{trad|ku|xwendgeh|dibistan}}
+* {{trad|da|skole}}
+* [[Eleuthera]] : [[skol]]
+* {{trad|sk|škola}}
+* {{t|es|escuela|f}}
+* {{trad|eo|lernejo}}
+* {{trad|et|kool}}
+* {{trad|fo|skúli}}
+* {{trad|fi|koulu}}
+* {{trad|vls|school}}
+* {{t|fr|école|f}}
+* {{trad|fy|skoalle}}
+* {{trad|gd|sgoil}}
+* {{trad|gl|escola}}
+* {{trad|cy|ysgol}}
+* {{trad|gll|escoll}}
+* {{t|el|σχολείο|n|scholío}}
+* {{trad|grc|σχολή|διδασκαλειον}}
+* {{trad|gn|mbo’ehao}}
+* {{trad|gu|શાળા}}
+* {{trad|he|בית-ספר|m|bet sefer}}
+* {{trad|hi|पाठशाला|स्कूल}}
+* {{trad|nl|school}}
+* {{trad|hu|iskola}}
+* {{trad|id|sekolah}}
+* {{trad|en|school}}
+* {{trad|ga|scoil}}
+{{tradmeio}}
+* {{trad|is|skóli}}
+* {{t|it|scuola|f}}
+* {{t|ja|学校||gakkō}}
+* {{trad|lad|scora}}
+* {{trad|la|schola}}
+* {{t|lv|skola|f}}
+* {{trad|li|sjool}}
+* {{trad|ln|kelasi|eteyelo}}
+* {{trad|mk|училиште}}
+* {{trad|ms|sekolah}}
+* {{trad|mg|sekoly}}
+* {{trad|gv|schoil}}
+* {{trad|mi|wharekura}}
+* {{trad|mr|शाळा}}
+* {{trad|mas|enchule}}
+* {{trad|mwl|scuola}}
+* {{trad|mdf|tonavtnaemvasta|shkola}}
+* {{trad|mn|сургууль}}
+* {{trad|nap|scola}}
+* {{trad|nb|skole}}
+* {{t|fa|مدرسه||madrase}}
+* {{trad|pms|scòla}}
+* {{trad|pl|szkoła}}
+* {{trad|pa|ਮਦਰੱਸਾ}}
+* {{trad|qu|yachaywasi|eskwela}}
+* {{trad|ky|мектеп}}
+* {{t|ro|școală|f}}
+* {{t|ru|школа|f|škóla}}
+* {{trad|se|skuvla}}
+* {{trad|sm|ā'oga}}
+* {{trad|sa|विद्यालयः}}
+* {{trad|sro|scola|iscola}}
+* {{t|sr|школа||škóla}}
+* {{trad|sw|shule}}
+* {{trad|sv|skola}}
+* {{t|th|โรงเรียน||rohng rian}}
+* {{trad|tn|sekole|sekolo}}
+* {{trad|tu|mboessaba}}
+* {{trad|tr|okul|mektep}}
+* {{trad|tk|мекдеп}}
+* {{t|uk|школа||škóla}}
+* {{t|ur|اسکول||iskul}}
+* {{trad|val|escola}}
+* {{trad|vec|scola}}
+* {{trad|xh|isikolo}}
+{{tradfim}}
+===Verbetes derivados===
+{{colunas|4}}
+* [[autoescola]]
+* [[escolanovismo]]
+* [[escolante]]
+* [[escolarizável]]
+{{colunas.fim}}
+
+==Etimologia==
+{{etimo2|la|schola|pt|ponto=não}}, pelo grego antigo {{etimo|grc|σχολή}} (''scholḗ'') "[[lazer]]".
+=={{Pronúncia|pt}}==
+===Brasil===
+* [[AFI]]: {{AFI|/is.ˈkɔ.la/}}
+===Portugal===
+* AFI: {{AFI|/iʃ.ˈkɔ.lɐ/}}
+==Ver também==
+===No Wikcionário===
+{{verTambém.Ini}}
+* [[academia]]
+* [[colégio]]
+* [[doutrina]]
+* [[educação]]
+{{verTambém.NovaColuna}}
+* [[ensino]]
+* [[faculdade]]
+* [[universidade]]
+{{verTambém.Fim}}
+===Na Wikipédia===
+{{verTambém.Ini}}
+* {{interwiki|w|pt|Doutrina}}
+* {{interwiki|w|pt|Educação}}
+* {{interwiki|w|pt|Ensino}}
+{{verTambém.NovaColuna}}
+* {{interwiki|w|pt|Escola}}
+* {{interwiki|w|pt|Estilo}}
+{{verTambém.Fim}}
+==Anagramas==
+# [[escalo]]
+# [[sacelo]]
+# [[sacolé]]
+
+[[Categoria:Educação (Português)]]
+
+
+={{-ast-}}=
+=={{Substantivo|ast}}==
+'''escola'''
+# [[escola#Português|escola]]
+
+[[Categoria:Educação (Asturiano)]]
+
+
+={{-ca-}}=
+=={{Substantivo|ca}}==
+'''escola'''
+# [[escola#Português|escola]]
+
+[[Categoria:Educação (Catalão)]]
+
+
+={{-gl-}}=
+=={{Substantivo|gl}}==
+'''escola'''
+# [[escola#Português|escola]]
+
+[[Categoria:Educação (Galego)]]
+
+
+={{-val-}}=
+=={{Substantivo|val}}==
+'''escola'''
+# [[escola#Português|escola]]
+
+[[Categoria:Educação (Valenciano)]]
