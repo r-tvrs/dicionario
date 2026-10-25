@@ -4,7 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Dicionário">
 <title>Dicionário</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="style.css">
 <script type="module" src="app.js"></script>
 </head>
@@ -15,6 +18,7 @@
       <label class="campo">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="20.5" y2="20.5"/></svg>
         <input id="q" type="search" placeholder="Buscar palavra" aria-label="Buscar palavra" enterkeyhint="search" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+        <button id="apagar" type="button" aria-label="Apagar"><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="var(--fill)" stroke-width="2.2" stroke-linecap="round"/></svg></button>
       </label>
       <button id="cancelar" type="button" hidden>Cancelar</button>
     </form>
@@ -24,10 +28,22 @@
 </main>
 
 <main id="historico" hidden>
-  <header class="barra"><h1 class="titulo">Histórico</h1></header>
-  <div class="vazio">
+  <header class="barra barra-hist"><h1 class="titulo">Histórico</h1><button id="limpar" type="button">Limpar tudo</button></header>
+  <ul id="lista-hist" class="lista-hist"></ul>
+  <div id="vazio" class="vazio">
     <h2>Nenhuma busca ainda</h2>
     <p>As palavras que você buscar aparecem aqui.</p>
+    <button id="cta" class="acao" type="button">Buscar uma palavra</button>
+  </div>
+  <div id="folha" hidden>
+    <div id="veu" class="veu"></div>
+    <div class="folha" role="dialog" aria-modal="true" aria-labelledby="folha-titulo">
+      <div class="folha-grupo">
+        <div class="folha-msg"><p id="folha-titulo">Limpar todo o histórico?</p><p>Esta ação não pode ser desfeita.</p></div>
+        <button id="confirmar" type="button" class="perigo">Limpar tudo</button>
+      </div>
+      <button id="desistir" type="button" class="folha-grupo">Cancelar</button>
+    </div>
   </div>
 </main>
 

@@ -1,5 +1,6 @@
 import { lerVerbete } from './verbete.js';
 import { CATEGORIA, portugues, completar, parecidas } from './sugestoes.js';
+import { historico, quando } from './historico.js';
 
 const API = 'https://pt.wiktionary.org/w/api.php';
 const $ = (id) => document.getElementById(id);
@@ -9,6 +10,7 @@ const lista = $('sugestoes');
 const cancelar = $('cancelar');
 let buscaAtual = 0;
 let palavraAtual = '';
+const hist = historico(localStorage);
 
 const el = (tag, classe, texto) => {
   const e = document.createElement(tag);
@@ -125,6 +127,7 @@ async function buscar(palavra) {
   }
   artigo.append(el('p', 'fonte', 'Fonte: Wikcionário · CC BY-SA 4.0'));
   mostrar(artigo);
+  hist.adicionar(pag.titulo);
 }
 
 $('busca').addEventListener('submit', (e) => {
@@ -159,6 +162,7 @@ function fecharSugestoes() {
   lista.hidden = true;
 }
 
+const limparBusca = $('apagar');
 q.addEventListener('input', () => {
   fecharSugestoes();
   const termo = q.value.trim();
@@ -182,6 +186,12 @@ q.addEventListener('blur', () => {
   cancelar.hidden = true;
   fecharSugestoes();
 });
+limparBusca.addEventListener('mousedown', (e) => e.preventDefault());
+limparBusca.addEventListener('click', () => {
+  q.value = '';
+  q.dispatchEvent(new Event('input'));
+  q.focus();
+});
 cancelar.addEventListener('mousedown', (e) => e.preventDefault());
 cancelar.addEventListener('click', () => {
   q.value = palavraAtual;
@@ -203,4 +213,94 @@ $('aba-buscar').addEventListener('click', () => {
   q.focus();
   q.select();
 });
-$('aba-historico').addEventListener('click', () => aba('historico'));
+$('aba-historico').addEventListener('click', () => {
+  listarHistorico();
+  aba('historico');
+});
+
+let aberta = null; // .frente com o Apagar à mostra
+const mover = (frente, x) => (frente.style.transform = x ? `translateX(${x}px)` : '');
+function fechar() {
+  if (aberta) mover(aberta, 0);
+  aberta = null;
+}
+
+function apagar(li, palavra) {
+  aberta = null;
+  li.style.height = '0';
+  setTimeout(() => {
+    hist.remover(palavra);
+    listarHistorico();
+  }, 220);
+}
+
+function linha({ palavra, data }) {
+  const li = el('li');
+  const apagarBtn = el('button', 'apagar');
+  apagarBtn.type = 'button';
+  apagarBtn.append(el('span', null, 'Apagar'));
+  apagarBtn.addEventListener('click', () => apagar(li, palavra));
+  const frente = el('div', 'frente');
+  const dentro = el('div');
+  dentro.append(el('span', null, palavra), el('span', null, quando(data)));
+  frente.append(dentro);
+  li.append(apagarBtn, frente);
+
+  let p = null;
+  frente.addEventListener('pointerdown', (e) => {
+    const estavaAberta = aberta === frente;
+    if (aberta && !estavaAberta) fechar();
+    p = { x: e.clientX, tx0: estavaAberta ? -88 : 0, tx: estavaAberta ? -88 : 0, moveu: false, estavaAberta };
+    frente.setPointerCapture(e.pointerId);
+  });
+  frente.addEventListener('pointermove', (e) => {
+    if (!p) return;
+    const dx = e.clientX - p.x;
+    if (!p.moveu && Math.abs(dx) < 6) return;
+    p.moveu = true;
+    p.tx = Math.max(-330, Math.min(0, p.tx0 + dx));
+    frente.style.transition = 'none';
+    mover(frente, p.tx);
+  });
+  const soltar = (e) => {
+    if (!p) return;
+    const { moveu, tx, estavaAberta } = p;
+    p = null;
+    frente.style.transition = '';
+    // pointercancel = o navegador assumiu a rolagem vertical; não é toque.
+    if (!moveu && e.type === 'pointercancel') return;
+    if (!moveu) {
+      if (estavaAberta) return fechar();
+      q.value = palavra;
+      aba('buscar');
+      return buscar(palavra);
+    }
+    if (tx < -220) return apagar(li, palavra);
+    if (tx < -40) {
+      aberta = frente;
+      return mover(frente, -88);
+    }
+    if (aberta === frente) aberta = null;
+    mover(frente, 0);
+  };
+  frente.addEventListener('pointerup', soltar);
+  frente.addEventListener('pointercancel', soltar);
+  return li;
+}
+
+function listarHistorico() {
+  const itens = hist.lista();
+  aberta = null;
+  $('lista-hist').replaceChildren(...itens.map(linha));
+  $('vazio').hidden = itens.length > 0;
+  $('limpar').hidden = !itens.length;
+}
+
+$('cta').addEventListener('click', () => $('aba-buscar').click());
+$('limpar').addEventListener('click', () => ($('folha').hidden = false));
+for (const id of ['veu', 'desistir']) $(id).addEventListener('click', () => ($('folha').hidden = true));
+$('confirmar').addEventListener('click', () => {
+  hist.limpar();
+  $('folha').hidden = true;
+  listarHistorico();
+});
