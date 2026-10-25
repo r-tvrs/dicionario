@@ -52,8 +52,27 @@ async function buscar(palavra) {
   artigo.append(el('h1', 'palavra', dados.parse.title));
   for (const { classe, acepcoes } of verbete.classes) {
     const ol = el('ol', 'defs');
-    for (const a of acepcoes) ol.append(el('li', null, a.texto));
+    for (const a of acepcoes) {
+      const div = el('div');
+      const p = el('p', null, a.texto);
+      if (a.etiqueta) p.prepend(el('span', 'etiqueta', a.etiqueta));
+      div.append(p, ...a.exemplos.map((ex) => el('p', 'exemplo', ex)));
+      const li = el('li');
+      li.append(div);
+      ol.append(li);
+    }
     artigo.append(el('p', 'classe', classe), ol);
+  }
+  if (verbete.sinonimos.length) {
+    const sec = el('section', 'sinonimos');
+    const chips = el('div', 'chips');
+    for (const s of verbete.sinonimos) {
+      const b = el('button', null, s);
+      b.addEventListener('click', () => buscar((q.value = s)));
+      chips.append(b);
+    }
+    sec.append(el('h2', null, 'Sinônimos'), chips);
+    artigo.append(sec);
   }
   artigo.append(el('p', 'fonte', 'Fonte: Wikcionário · CC BY-SA 4.0'));
   mostrar(artigo);

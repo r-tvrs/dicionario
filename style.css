@@ -1,14 +1,14 @@
 :root {
   color-scheme: light dark;
   --bg: #FFFFFF; --text: #0A0A0A; --text2: #5C5C61; --text3: #6C6C71; --ink: #0A0A0A;
-  --fill: #EFEFF1; --sep: rgba(0,0,0,.14); --bar: rgba(255,255,255,.86);
+  --fill: #EFEFF1; --sep: rgba(0,0,0,.14); --chipbd: rgba(0,0,0,.2); --bar: rgba(255,255,255,.86);
   --skel: #EDEDEF;
   --headfont: ui-serif, 'New York', Georgia, serif;
 }
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #000000; --text: #F5F5F7; --text2: #A1A1A6; --text3: #8D8D93; --ink: #F5F5F7;
-    --fill: #1C1C1E; --sep: rgba(255,255,255,.16); --bar: rgba(12,12,12,.82);
+    --fill: #1C1C1E; --sep: rgba(255,255,255,.16); --chipbd: rgba(255,255,255,.26); --bar: rgba(12,12,12,.82);
     --skel: #1C1C1E;
   }
 }
@@ -47,6 +47,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .defs { list-style: none; margin: 28px 0 0; padding: 0; display: flex; flex-direction: column; gap: 24px; counter-reset: def; }
 .defs li { display: grid; grid-template-columns: 24px minmax(0,1fr); column-gap: 2px; font-size: 17px; line-height: 26px; text-wrap: pretty; counter-increment: def; }
 .defs li::before { content: counter(def); font-weight: 600; color: var(--text2); font-variant-numeric: tabular-nums; }
+.defs p { margin: 0; }
+.etiqueta { display: inline-flex; align-items: center; height: 22px; padding: 0 7px; margin-right: 8px; border-radius: 6px; border: 1px solid var(--chipbd); font-size: 13px; font-weight: 500; color: var(--text2); vertical-align: 1px; }
+.defs .exemplo { margin-top: 6px; padding-left: 16px; font-size: 16px; line-height: 24px; font-style: italic; color: var(--text2); }
+.sinonimos { margin-top: 36px; }
+.sinonimos h2 { margin: 0 0 12px; font-size: 13px; line-height: 18px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text2); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips button { position: relative; height: 36px; padding: 0 14px; border-radius: 18px; border: 1px solid var(--chipbd); font-size: 16px; }
+.chips button::before { content: ''; position: absolute; inset: -5px -1px; }
+.chips button:active { background: var(--fill); }
 .fonte { margin: 40px 0 0; font-size: 13px; line-height: 18px; color: var(--text2); }
 .estado h2, .vazio h2 { margin: 0; font-size: 22px; line-height: 28px; font-weight: 600; }
 .estado { padding-top: 40px; }

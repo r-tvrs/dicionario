@@ -16,7 +16,9 @@ export function lerVerbete(wikitext) {
   const pt = wikitext.split(/^=\{\{-pt-\}\}=\s*$/m)[1]?.split(/^=[^=]/m)[0];
   if (pt === undefined) return null;
   const classes = [];
+  const sinonimos = [];
   let atual = null;
+  let emSinonimos = false;
   for (const linha of pt.split('\n')) {
     const h2 = linha.match(/^==([^=].*?)==\s*$/);
     if (h2) {
@@ -25,11 +27,24 @@ export function lerVerbete(wikitext) {
       nome = nome[0].toUpperCase() + nome.slice(1);
       atual = nome.includes('{{') || NAO_CLASSES.includes(nome) ? null : { classe: nome, acepcoes: [] };
       if (atual) classes.push(atual);
+      emSinonimos = false;
     } else if (linha.startsWith('===')) {
       atual = null;
+      emSinonimos = /^===\s*Sinônimos?\s*===/.test(linha);
+    } else if (emSinonimos && linha.startsWith('*')) {
+      sinonimos.push(limpar(linha.slice(1)));
     } else if (atual && /^#[^*:]/.test(linha)) {
-      atual.acepcoes.push({ texto: limpar(linha.slice(1)) });
+      const etiqueta = linha.match(/\{\{escopo\|pt\|([^|}]+)/)?.[1].trim();
+      atual.acepcoes.push({
+        texto: limpar(linha.slice(1)),
+        etiqueta: etiqueta && etiqueta[0].toUpperCase() + etiqueta.slice(1),
+        exemplos: [],
+      });
+    } else if (atual && /^#\*:?/.test(linha)) {
+      // #* e #*: são exemplos; #: é a citação bibliográfica e fica de fora.
+      const exemplos = atual.acepcoes.at(-1)?.exemplos;
+      if (exemplos?.length < 2) exemplos.push(limpar(linha.replace(/^#\*:?/, '')));
     }
   }
-  return { classes: classes.filter((c) => c.acepcoes.length) };
+  return { classes: classes.filter((c) => c.acepcoes.length), sinonimos: sinonimos.filter(Boolean) };
 }

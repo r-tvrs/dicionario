@@ -65,3 +65,26 @@ test('cabeçalho com <sup> vira texto puro; "Anagrama" no singular ignorado', ()
   const { classes } = lerVerbete('={{-pt-}}=\n==Substantivo<sup>1</sup>==\n# a\n==Anagrama==\n# b\n');
   assert.deepEqual(classes.map((c) => c.classe), ['Substantivo']);
 });
+
+test('casa: exemplos sob a definição certa, no máximo 2; citação bibliográfica descartada', () => {
+  const [sub] = lerVerbete(fixture('casa')).classes;
+  assert.deepEqual(sub.acepcoes[0].exemplos, ['Sua casa é muito bonita!', 'Essa casa é muito grande.']);
+  assert.deepEqual(sub.acepcoes[3].exemplos, [
+    'A erva-mate ocupa uma área de aproximadamente 4.700 hectares, e a produção anual do produto fica na casa dos 25 milhões de quilos.',
+  ]);
+});
+
+test('resiliência: escopo vira etiqueta; saudade: etiqueta com maiúscula e sem exemplo onde não há', () => {
+  const [res] = lerVerbete(fixture('resiliência')).classes;
+  assert.deepEqual(res.acepcoes.map((a) => a.etiqueta), ['Física', 'Figurado']);
+  assert.equal(res.acepcoes[1].exemplos.length, 1);
+  assert.equal(lerVerbete('={{-pt-}}=\n==Verbo==\n# {{escopo|pt|figurado}} x\n').classes[0].acepcoes[0].etiqueta, 'Figurado');
+  assert.deepEqual(lerVerbete(fixture('saudade')).classes[0].acepcoes[0].exemplos, []);
+});
+
+test('procrastinar: 7 sinônimos; saudade sem sinônimos', () => {
+  assert.deepEqual(lerVerbete(fixture('procrastinar')).sinonimos, [
+    'adiar', 'deferir', 'demorar', 'empurrar com a barriga', 'espaçar', 'protelar', 'usar de delongas',
+  ]);
+  assert.deepEqual(lerVerbete(fixture('saudade')).sinonimos, []);
+});
