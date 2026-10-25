@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><style>body{margin:0;background:#E8E8E6}a{color:#0A0A0A}a:hover{color:#5C5C61}</style></helmet>
+<div lang="pt-BR" style="width:5100px;padding:72px 72px 140px;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Helvetica,Arial,sans-serif;color:#0A0A0A;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;gap:96px">
+
+<section style="display:flex;gap:72px;align-items:flex-start">
+  <div style="width:520px;display:flex;flex-direction:column;gap:28px">
+    <div>
+      <p style="margin:0;font:600 12px/1 ui-monospace,Menlo,monospace;letter-spacing:.06em;color:#6C6C71">HANDOFF · V1 · OUT 2026</p>
+      <h1 style="margin:14px 0 0;font-family:ui-serif,'New York',Georgia,serif;font-size:64px;line-height:1;font-weight:600">Dicionário</h1>
+      <p style="margin:12px 0 0;font-size:20px;line-height:28px;color:#5C5C61">PWA para iPhone · PT-BR · dados do Wikcionário</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <h2 style="margin:0;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5C5C61">Decisões</h2>
+      <ol style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:10px;font-size:15px;line-height:22px">
+        <li>Monocromático: preto sobre branco no modo claro, branco sobre preto no escuro. A tinta (--ink) é a única cor de destaque; vermelho aparece só em ações destrutivas.</li>
+        <li>A palavra do verbete usa New York (ui-serif, fonte do sistema da Apple) para separar o conteúdo da interface. Pode trocar por SF Pro nos Tweaks.</li>
+        <li>Tela-alvo 390 × 844 pt (iPhone 12–14, com notch). Áreas seguras: 47 pt no topo, 34 pt embaixo.</li>
+        <li>Etiquetas de contexto ficam na linha da definição, antes do texto. Exemplos ficam 16 pt recuados, logo abaixo.</li>
+        <li>Sinônimos em chips: 36 pt visíveis, 44 pt de área de toque. Variante em links nos Tweaks.</li>
+        <li>Atribuição CC BY-SA ao Wikcionário no fim de cada verbete, como pede a licença.</li>
+        <li>Todas as telas deste quadro são interativas.</li>
+      </ol>
+    </div>
+    <nav style="display:flex;gap:16px;font-size:15px"><a href="#telas">Telas</a><a href="#icone">Ícone</a><a href="#tokens">Tokens</a><a href="#componentes">Componentes</a></nav>
+  </div>
+
+  <div data-screen-label="Protótipo" style="display:flex;gap:32px;align-items:flex-start">
+    <dc-import name="DicionarioApp" theme="{{ liveTheme }}" screen="inicio" offline="{{ offline }}" reset-token="{{ reset }}" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import>
+    <div style="width:280px;display:flex;flex-direction:column;gap:24px;padding-top:8px">
+      <div>
+        <p style="margin:0;font:600 12px/1 ui-monospace,Menlo,monospace;letter-spacing:.06em;color:#6C6C71">PROTÓTIPO</p>
+        <h2 style="margin:10px 0 0;font-size:24px;line-height:30px;font-weight:600">Experimente</h2>
+      </div>
+      <div style="display:flex;padding:3px;border-radius:10px;background:#D9D9D6">
+        <button onClick="{{ setClaro }}" style="flex:1;height:36px;border:0;border-radius:8px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;background:{{ claroBg }};color:#0A0A0A;box-shadow:{{ claroSh }}">Claro</button>
+        <button onClick="{{ setEscuro }}" style="flex:1;height:36px;border:0;border-radius:8px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;background:{{ escuroBg }};color:#0A0A0A;box-shadow:{{ escuroSh }}">Escuro</button>
+      </div>
+      <button onClick="{{ toggleOffline }}" style="display:flex;align-items:center;justify-content:space-between;height:44px;padding:0 4px;border:0;background:transparent;font:inherit;font-size:15px;color:#0A0A0A;cursor:pointer">
+        <span>Simular sem conexão</span>
+        <span style="width:44px;height:26px;border-radius:13px;background:{{ offTrack }};position:relative;transition:background .2s"><span style="position:absolute;top:3px;left:{{ offKnob }}px;width:20px;height:20px;border-radius:10px;background:#FFFFFF;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s"></span></span>
+      </button>
+      <button onClick="{{ doReset }}" style="height:44px;border:1px solid rgba(0,0,0,.2);border-radius:12px;background:transparent;font:inherit;font-size:15px;font-weight:600;color:#0A0A0A;cursor:pointer" style-hover="background:#DEDEDB">Reiniciar</button>
+      <ol style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:10px;font-size:14px;line-height:20px;color:#3A3A3E">
+        <li>Toque no campo e digite “sauda”, no teclado da tela ou no seu.</li>
+        <li>Abra “procrastinar” e toque num sinônimo.</li>
+        <li>Busque “excessão”.</li>
+        <li>No Histórico, arraste uma palavra para a esquerda. Arraste até o fim para apagar direto.</li>
+        <li>Ligue “Sem conexão” e faça uma busca.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div id="icone" style="display:flex;flex-direction:column;gap:24px;padding-left:40px;border-left:1px solid rgba(0,0,0,.1)">
+    <div>
+      <p style="margin:0;font:600 12px/1 ui-monospace,Menlo,monospace;letter-spacing:.06em;color:#6C6C71">ÍCONE</p>
+      <h2 style="margin:10px 0 0;font-size:24px;line-height:30px;font-weight:600">apple-touch-icon</h2>
+    </div>
+    <div style="display:flex;gap:40px;align-items:flex-start">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="width:180px;height:180px;background:#0A0A0A;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-family:ui-serif,'New York',Georgia,serif;font-size:136px;line-height:1;font-weight:600;color:#FFFFFF;transform:translateY(4px)">á</span></div>
+        <p style="margin:0;font-size:13px;line-height:18px;color:#5C5C61">Arquivo: 180 × 180, PNG, sem<br>transparência e sem cantos</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="width:180px;height:180px;border-radius:40px;background:#0A0A0A;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-family:ui-serif,'New York',Georgia,serif;font-size:136px;line-height:1;font-weight:600;color:#FFFFFF;transform:translateY(4px)">á</span></div>
+        <p style="margin:0;font-size:13px;line-height:18px;color:#5C5C61">Com a máscara que o iOS aplica</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:28px;align-items:flex-end;padding:24px;border-radius:20px;background:linear-gradient(#9A9B98,#7E807C)">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:60px;height:60px;border-radius:13.5px;background:#0A0A0A;display:flex;align-items:center;justify-content:center"><span style="font-family:ui-serif,'New York',Georgia,serif;font-size:46px;line-height:1;font-weight:600;color:#FFFFFF;transform:translateY(1.5px)">á</span></div><span style="font-size:11px;color:#FFFFFF">Dicionário</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:40px;height:40px;border-radius:9px;background:#0A0A0A;display:flex;align-items:center;justify-content:center"><span style="font-family:ui-serif,'New York',Georgia,serif;font-size:31px;line-height:1;font-weight:600;color:#FFFFFF;transform:translateY(1px)">á</span></div><span style="font-size:11px;color:#FFFFFF">40 pt</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:60px;height:60px;border-radius:13.5px;background:#FFFFFF;display:flex;align-items:center;justify-content:center"><span style="font-family:ui-serif,'New York',Georgia,serif;font-size:46px;line-height:1;font-weight:600;color:#0A0A0A;transform:translateY(1.5px)">á</span></div><span style="font-size:11px;color:#FFFFFF">Alternativa</span></div>
+    </div>
+    <p style="margin:0;max-width:420px;font-size:13px;line-height:19px;color:#5C5C61">O “á” lembra a língua (o acento) e continua legível a 40 pt. A versão preta é a principal; a branca serve se preferir um ícone claro.</p>
+  </div>
+</section>
+
+<section id="telas" style="display:grid;grid-template-columns:repeat(11,414px);column-gap:40px;row-gap:20px">
+  <h2 style="grid-column:1/-1;margin:0 0 12px;font-size:32px;line-height:38px;font-weight:600">Telas</h2>
+  <div><p style="margin:0;font:600 12px/1 ui-monospace,Menlo,monospace;color:#6C6C71">01</p><h3 style="margin:8px 0 6px;font-size:18px;font-weight:600">Buscar — vazio</h3><p style="margin:0;font-size:13px;line-height:19px;color:#5C5C61">Campo em foco, teclado aberto, “Cancelar” à direita. A barra de abas fica atrás do teclado.</p></div>
+  <div><p style="margin:0;font:600 12px/1 ui-monospace,Menlo,monospace;color:#6C6C71">02</p><h3 style="margin:8px 0 6px;font-size:18px;font-weight:600">Buscar — sugestões</h3><p style="margin:0;font-size:13px;line-height:19px;color:#5C5C61">Até 8 itens. Parte digitada em cinza, completação em negrito. Ignora acentos ao comparar.</p></div>
+  <div><p style="margin:0;font:600 12px/1 ui-monospace,Menlo,monospace;color:#6C6C71">03</p><h3 style="margin:8px 0 6px;font-size:18px;font-weight:600">Verbete completo</h3><p style="margin:0;font-size:13px;line-height:19px;color:#5C5C61">Palavra, classe, definições numeradas, etiquetas e exemplos. Definições sem etiqueta ou exemplo continuam alinhadas.</p></div>
+  <div><p style="margin:0;font:600 12px/1 ui-monospace,Menlo,monospace;color:#6C6C71">04</p><h3 style="margin:8px 0 6px;font-size:18px;font-weight:600">Verbete com sinônimos</h3><p style="margin:0;font-size:13px;line-height:19px;color:#5C5C61">Uma definição só. Cada chip faz uma nova busca e entra no histórico.</p></div>
+  <div><p style="margin:0;font:600 12px/1 ui-monospace,Menlo,monospace;color:#6C6C71">05</p><h3 style="margin:8px 0 6px;font-size:18px;font-weight:600">Verbete longo (rolado)</h3><p style="margin:0;font-size:13px;line-height:19px;color:#5C5C61">O campo fica fixo; ao rolar, a barra ganha fio de 0,5 pt e o texto passa desfocado por baixo.</p></div>
+  <div><p style="margin:0;font:600 12px/1 ui-monospace,Menlo,monospace;color:#6C6C71">06</p><h3 style="margin:8px 0 6px;font-size:18px;font-weight:600">Não encontrada</h3><p style="margin:0;font-size:13px;line-height:19px;color:#5C5C61">Até 3 sugestões por distância de edição. Sem sugestões, a seção some.</p></div>
+  <div><p style="margin:0;font:600 12px/1 ui-monospace,Menlo,monospace;color:#6C6C71">07</p><h3 style="margin:8px 0 6px;font-size:18px;font-weight:600">Sem conexão</h3><p style="margin:0;font-size:13px;line-height:19px;color:#5C5C61">O termo fica no campo. “Tentar de novo” repete a mesma busca.</p></div>
+  <div><p style="margin:0;font:600 12px/1 ui-monospace,Menlo,monospace;color:#6C6C71">08</p><h3 style="margin:8px 0 6px;font-size:18px;font-weight:600">Carregando</h3><p style="margin:0;font-size:13px;line-height:19px;color:#5C5C61">A palavra aparece na hora; o resto pulsa em esqueleto. Mostrar só após 300 ms.</p></div>
+  <div><p style="margin:0;font:600 12px/1 ui-monospace,Menlo,monospace;color:#6C6C71">09</p><h3 style="margin:8px 0 6px;font-size:18px;font-weight:600">Histórico</h3><p style="margin:0;font-size:13px;line-height:19px;color:#5C5C61">Mais recente no topo. “resiliência” aparece deslizada, com “Apagar” exposto.</p></div>
+  <div><p style="margin:0;font:600 12px/1 ui-monospace,Menlo,monospace;color:#6C6C71">09b</p><h3 style="margin:8px 0 6px;font-size:18px;font-weight:600">Histórico — confirmar</h3><p style="margin:0;font-size:13px;line-height:19px;color:#5C5C61">“Limpar tudo” abre uma folha de ação. Tocar fora cancela.</p></div>
+  <div><p style="margin:0;font:600 12px/1 ui-monospace,Menlo,monospace;color:#6C6C71">10</p><h3 style="margin:8px 0 6px;font-size:18px;font-weight:600">Histórico — vazio</h3><p style="margin:0;font-size:13px;line-height:19px;color:#5C5C61">Sem “Limpar tudo”. O botão leva à busca com o campo em foco.</p></div>
+
+  <p style="grid-column:1/-1;margin:24px 0 0;font:600 12px/1 ui-monospace,Menlo,monospace;letter-spacing:.06em;color:#6C6C71">MODO CLARO</p>
+  <div data-screen-label="01 Vazio · claro"><dc-import name="DicionarioApp" theme="claro" screen="vazio" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="02 Sugestões · claro"><dc-import name="DicionarioApp" theme="claro" screen="sugestoes" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="03 Verbete · claro"><dc-import name="DicionarioApp" theme="claro" screen="verbete" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="04 Sinônimos · claro"><dc-import name="DicionarioApp" theme="claro" screen="sinonimos" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="05 Longo · claro"><dc-import name="DicionarioApp" theme="claro" screen="longo" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="06 Não encontrada · claro"><dc-import name="DicionarioApp" theme="claro" screen="naoencontrada" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="07 Sem conexão · claro"><dc-import name="DicionarioApp" theme="claro" screen="semconexao" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="08 Carregando · claro"><dc-import name="DicionarioApp" theme="claro" screen="carregando" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="09 Histórico · claro"><dc-import name="DicionarioApp" theme="claro" screen="historico" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="09b Confirmar · claro"><dc-import name="DicionarioApp" theme="claro" screen="historico-confirmar" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="10 Histórico vazio · claro"><dc-import name="DicionarioApp" theme="claro" screen="historico-vazio" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+
+  <p style="grid-column:1/-1;margin:40px 0 0;font:600 12px/1 ui-monospace,Menlo,monospace;letter-spacing:.06em;color:#6C6C71">MODO ESCURO</p>
+  <div data-screen-label="01 Vazio · escuro"><dc-import name="DicionarioApp" theme="escuro" screen="vazio" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="02 Sugestões · escuro"><dc-import name="DicionarioApp" theme="escuro" screen="sugestoes" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="03 Verbete · escuro"><dc-import name="DicionarioApp" theme="escuro" screen="verbete" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="04 Sinônimos · escuro"><dc-import name="DicionarioApp" theme="escuro" screen="sinonimos" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="05 Longo · escuro"><dc-import name="DicionarioApp" theme="escuro" screen="longo" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="06 Não encontrada · escuro"><dc-import name="DicionarioApp" theme="escuro" screen="naoencontrada" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="07 Sem conexão · escuro"><dc-import name="DicionarioApp" theme="escuro" screen="semconexao" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="08 Carregando · escuro"><dc-import name="DicionarioApp" theme="escuro" screen="carregando" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="09 Histórico · escuro"><dc-import name="DicionarioApp" theme="escuro" screen="historico" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="09b Confirmar · escuro"><dc-import name="DicionarioApp" theme="escuro" screen="historico-confirmar" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+  <div data-screen-label="10 Histórico vazio · escuro"><dc-import name="DicionarioApp" theme="escuro" screen="historico-vazio" serif="{{ serif }}" syn-style="{{ synStyle }}" tag-style="{{ tagStyle }}" hint-size="414px,868px"></dc-import></div>
+</section>
+
+<section style="display:grid;grid-template-columns:1180px minmax(0,1fr);gap:48px;align-items:start">
+  <div id="tokens" style="display:flex;flex-direction:column;gap:24px">
+    <h2 style="margin:0 0 4px;font-size:32px;line-height:38px;font-weight:600">Tokens</h2>
+
+    <article style="background:#FFFFFF;border-radius:16px;padding:28px">
+      <h3 style="margin:0 0 16px;font-size:20px;font-weight:600">Cores</h3>
+      <div style="display:grid;grid-template-columns:150px minmax(0,1fr) 230px 230px;font-size:13px;line-height:18px">
+        <div style="padding:0 0 10px;font-weight:600;color:#6C6C71">Token</div><div style="padding:0 0 10px;font-weight:600;color:#6C6C71">Uso</div><div style="padding:0 0 10px;font-weight:600;color:#6C6C71">Claro</div><div style="padding:0 0 10px;font-weight:600;color:#6C6C71">Escuro</div>
+        <sc-for list="{{ colorTokens }}" as="c" hint-placeholder-count="15">
+          <div style="padding:9px 0;border-top:1px solid rgba(0,0,0,.08);font-family:ui-monospace,Menlo,monospace;font-size:12px">{{ c.name }}</div>
+          <div style="padding:9px 16px 9px 0;border-top:1px solid rgba(0,0,0,.08)">{{ c.use }}</div>
+          <div style="padding:6px 0;border-top:1px solid rgba(0,0,0,.08);display:flex;align-items:center;gap:10px"><span style="width:24px;height:24px;border-radius:6px;background:{{ c.light }};box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)"></span><span style="font-family:ui-monospace,Menlo,monospace;font-size:12px">{{ c.light }}</span></div>
+          <div style="padding:6px 0;border-top:1px solid rgba(0,0,0,.08);display:flex;align-items:center;gap:10px"><span style="width:24px;height:24px;border-radius:6px;background:#000000;display:flex;align-items:center;justify-content:center"><span style="width:16px;height:16px;border-radius:4px;background:{{ c.dark }};box-shadow:0 0 0 1px rgba(255,255,255,.18)"></span></span><span style="font-family:ui-monospace,Menlo,monospace;font-size:12px">{{ c.dark }}</span></div>
+        </sc-for>
+      </div>
+      <p style="margin:16px 0 0;font-size:13px;line-height:19px;color:#5C5C61">Contraste sobre --bg · claro / escuro: --text 19,8:1 / 19,3:1 · --text2 6,6:1 / 8,2:1 · --text3 5,2:1 / 6,3:1 (4,5:1 sobre --fill) · --danger 5,4:1 / 4,9:1 sobre --sheet · branco sobre --dangerbg 5,4:1 / 4,8:1. Teclado: cores do sistema, só referência.</p>
+    </article>
+
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:24px;align-items:start">
+      <article style="background:#FFFFFF;border-radius:16px;padding:28px">
+        <h3 style="margin:0 0 16px;font-size:20px;font-weight:600">Tipografia</h3>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) 250px;font-size:13px;line-height:18px;color:#5C5C61">
+          <div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08);font-family:ui-serif,'New York',Georgia,serif;font-size:36px;line-height:42px;font-weight:600;color:#0A0A0A">resiliência</div><div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08)">Palavra · New York Semibold 36/42 · ui-serif</div>
+          <div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08);font-size:34px;line-height:41px;font-weight:700;color:#0A0A0A">Histórico</div><div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08)">Título grande · SF Pro Bold 34/41 (também a palavra na variante sem serifa)</div>
+          <div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08);font-size:22px;line-height:28px;font-weight:600;color:#0A0A0A">Palavra não encontrada</div><div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08)">Título de estado · Semibold 22/28</div>
+          <div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08);font-size:17px;line-height:26px;color:#0A0A0A">capacidade de se recuperar de situações difíceis</div><div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08)">Definição · Regular 17/26</div>
+          <div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08);font-size:16px;line-height:24px;font-style:italic;color:#5C5C61">A equipe superou a crise em poucos meses.</div><div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08)">Exemplo · Italic 16/24 · --text2</div>
+          <div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08);font-size:17px;line-height:22px;color:#0A0A0A">saudade</div><div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08)">Lista (sugestão, histórico), campo · Regular 17/22</div>
+          <div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08);font-size:16px;line-height:20px;color:#0A0A0A">protelar</div><div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08)">Chip de sinônimo · Regular 16</div>
+          <div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08);font-size:15px;line-height:20px;color:#5C5C61">Substantivo · feminino</div><div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08)">Classe gramatical, datas · Regular 15/20 · --text2</div>
+          <div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08);font-size:13px;line-height:18px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5C5C61">Sinônimos</div><div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08)">Rótulo de seção · Semibold 13/18 · caixa-alta · +6%</div>
+          <div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08);font-size:13px;line-height:16px;font-weight:500;color:#5C5C61">Figurado</div><div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08)">Etiqueta · Medium 13</div>
+          <div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08);font-size:13px;line-height:18px;color:#5C5C61">Fonte: Wikcionário · CC BY-SA 4.0</div><div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08)">Legenda · Regular 13/18</div>
+          <div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08);font-size:10px;line-height:12px;font-weight:500;color:#0A0A0A">Buscar</div><div style="padding:12px 0;border-top:1px solid rgba(0,0,0,.08)">Rótulo da aba · Medium 10/12</div>
+        </div>
+        <p style="margin:16px 0 0;font-size:13px;line-height:19px;color:#5C5C61">Pilha: -apple-system, BlinkMacSystemFont, system-ui · serifa: ui-serif (New York) → Georgia. Valores em pt = px CSS.</p>
+      </article>
+
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <article style="background:#FFFFFF;border-radius:16px;padding:28px">
+          <h3 style="margin:0 0 16px;font-size:20px;font-weight:600">Espaçamento</h3>
+          <div style="display:flex;flex-direction:column;gap:10px;font-size:13px">
+            <div style="display:grid;grid-template-columns:40px 48px minmax(0,1fr);align-items:center;gap:12px"><span style="font-family:ui-monospace,Menlo,monospace">4</span><span style="width:4px;height:12px;background:#0A0A0A"></span><span style="color:#5C5C61">ajustes finos</span></div>
+            <div style="display:grid;grid-template-columns:40px 48px minmax(0,1fr);align-items:center;gap:12px"><span style="font-family:ui-monospace,Menlo,monospace">6</span><span style="width:6px;height:12px;background:#0A0A0A"></span><span style="color:#5C5C61">definição → exemplo, palavra → classe</span></div>
+            <div style="display:grid;grid-template-columns:40px 48px minmax(0,1fr);align-items:center;gap:12px"><span style="font-family:ui-monospace,Menlo,monospace">8</span><span style="width:8px;height:12px;background:#0A0A0A"></span><span style="color:#5C5C61">entre chips, ícone ↔ texto</span></div>
+            <div style="display:grid;grid-template-columns:40px 48px minmax(0,1fr);align-items:center;gap:12px"><span style="font-family:ui-monospace,Menlo,monospace">12</span><span style="width:12px;height:12px;background:#0A0A0A"></span><span style="color:#5C5C61">campo ↔ Cancelar, rótulo → chips</span></div>
+            <div style="display:grid;grid-template-columns:40px 48px minmax(0,1fr);align-items:center;gap:12px"><span style="font-family:ui-monospace,Menlo,monospace">16</span><span style="width:16px;height:12px;background:#0A0A0A"></span><span style="color:#5C5C61">recuo do exemplo, margem do topo</span></div>
+            <div style="display:grid;grid-template-columns:40px 48px minmax(0,1fr);align-items:center;gap:12px"><span style="font-family:ui-monospace,Menlo,monospace">20</span><span style="width:20px;height:12px;background:#0A0A0A"></span><span style="color:#5C5C61">margem lateral da página</span></div>
+            <div style="display:grid;grid-template-columns:40px 48px minmax(0,1fr);align-items:center;gap:12px"><span style="font-family:ui-monospace,Menlo,monospace">24</span><span style="width:24px;height:12px;background:#0A0A0A"></span><span style="color:#5C5C61">entre definições, mensagem → botão</span></div>
+            <div style="display:grid;grid-template-columns:40px 48px minmax(0,1fr);align-items:center;gap:12px"><span style="font-family:ui-monospace,Menlo,monospace">28</span><span style="width:28px;height:12px;background:#0A0A0A"></span><span style="color:#5C5C61">cabeçalho → 1ª definição</span></div>
+            <div style="display:grid;grid-template-columns:40px 48px minmax(0,1fr);align-items:center;gap:12px"><span style="font-family:ui-monospace,Menlo,monospace">40</span><span style="width:40px;height:12px;background:#0A0A0A"></span><span style="color:#5C5C61">topo das mensagens, antes da fonte</span></div>
+          </div>
+          <p style="margin:16px 0 0;font-size:13px;line-height:19px;color:#5C5C61">Áreas seguras: env(safe-area-inset-top) = 47, env(safe-area-inset-bottom) = 34. Toque mínimo 44 × 44.</p>
+        </article>
+        <article style="background:#FFFFFF;border-radius:16px;padding:28px">
+          <h3 style="margin:0 0 16px;font-size:20px;font-weight:600">Raios</h3>
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;font-size:12px;text-align:center;color:#5C5C61">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><span style="width:48px;height:48px;border-radius:6px;border:1.5px solid #0A0A0A;box-sizing:border-box"></span>6<br>etiqueta</div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><span style="width:48px;height:48px;border-radius:12px;border:1.5px solid #0A0A0A;box-sizing:border-box"></span>12<br>campo</div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><span style="width:48px;height:48px;border-radius:14px;border:1.5px solid #0A0A0A;box-sizing:border-box"></span>14<br>botão, folha</div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><span style="width:48px;height:48px;border-radius:18px;border:1.5px solid #0A0A0A;box-sizing:border-box"></span>18<br>chip</div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><span style="width:48px;height:48px;border-radius:24px;border:1.5px solid #0A0A0A;box-sizing:border-box"></span>999<br>pílula</div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <article style="background:#FFFFFF;border-radius:16px;padding:28px">
+      <h3 style="margin:0 0 16px;font-size:20px;font-weight:600">Notas de implementação (HTML, CSS e JS puros)</h3>
+      <ul style="margin:0;padding-left:18px;display:grid;grid-template-columns:1fr 1fr;gap:10px 32px;font-size:14px;line-height:20px">
+        <li><code style="font-size:12px">viewport-fit=cover</code> no viewport e <code style="font-size:12px">apple-mobile-web-app-status-bar-style: black-translucent</code>, para o conteúdo ir até as bordas.</li>
+        <li>Manifesto com <code style="font-size:12px">display: standalone</code> e <code style="font-size:12px">apple-touch-icon</code> de 180 px.</li>
+        <li>Tokens em <code style="font-size:12px">:root</code> e <code style="font-size:12px">@media (prefers-color-scheme: dark)</code>; declare <code style="font-size:12px">color-scheme: light dark</code>.</li>
+        <li>Topo fixo com <code style="font-size:12px">padding-top: calc(env(safe-area-inset-top) + 8px)</code>; abas com <code style="font-size:12px">padding-bottom: env(safe-area-inset-bottom)</code>.</li>
+        <li>Campo com 17 px: acima de 16 px o Safari não dá zoom ao focar.</li>
+        <li><code style="font-size:12px">enterkeyhint="search"</code>, <code style="font-size:12px">autocapitalize="none"</code>, <code style="font-size:12px">autocorrect="off"</code>, <code style="font-size:12px">spellcheck="false"</code>.</li>
+        <li>Sugestões com debounce de 150 ms; cancele a requisição anterior com <code style="font-size:12px">AbortController</code>.</li>
+        <li>Barras: <code style="font-size:12px">backdrop-filter: blur(20px) saturate(180%)</code> sobre --bar.</li>
+        <li><code style="font-size:12px">-webkit-tap-highlight-color: transparent</code>; estado pressionado via <code style="font-size:12px">:active</code>.</li>
+        <li>Esqueleto: pare a pulsação com <code style="font-size:12px">prefers-reduced-motion</code>.</li>
+        <li>Deslizar: <code style="font-size:12px">pointer events</code> + <code style="font-size:12px">touch-action: pan-y</code> na linha.</li>
+        <li>Histórico em <code style="font-size:12px">localStorage</code> (palavra + data ISO); data relativa com <code style="font-size:12px">Intl.RelativeTimeFormat('pt-BR')</code>.</li>
+      </ul>
+    </article>
+  </div>
+
+  <div id="componentes" style="display:flex;flex-direction:column;gap:24px">
+    <h2 style="margin:0 0 4px;font-size:32px;line-height:38px;font-weight:600">Componentes</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start">
+
+      <article style="background:#FFFFFF;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:20px">
+        <h3 style="margin:0;font-size:20px;font-weight:600">Campo de busca</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <sc-for list="{{ themes }}" as="t" hint-placeholder-count="2">
+            <div style="{{ t.vars }}"><div style="background:var(--bg);color:var(--text);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)">
+              <div style="height:44px;border-radius:12px;background:var(--fill);display:flex;align-items:center;gap:8px;padding-left:12px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"></circle><line x1="15.5" y1="15.5" x2="20.5" y2="20.5"></line></svg><span style="font-size:17px;color:var(--text3)">Buscar palavra</span></div>
+              <div style="display:flex;align-items:center;gap:12px"><div style="flex:1;height:44px;border-radius:12px;background:var(--fill);display:flex;align-items:center;gap:8px;padding-left:12px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"></circle><line x1="15.5" y1="15.5" x2="20.5" y2="20.5"></line></svg><span style="flex:1;font-size:17px">sauda<span style="display:inline-block;width:2px;height:20px;background:var(--ink);vertical-align:-4px"></span></span><span style="width:44px;display:flex;justify-content:center"><svg width="17" height="17" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="var(--text3)"></circle><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="var(--fill)" stroke-width="2.2" stroke-linecap="round"></path></svg></span></div><span style="font-size:17px;color:var(--ink)">Cancelar</span></div>
+            </div></div>
+          </sc-for>
+        </div>
+        <dl style="margin:0;display:grid;grid-template-columns:120px minmax(0,1fr);gap:8px 16px;font-size:13px;line-height:19px"><dt style="color:#6C6C71">Barra</dt><dd style="margin:0">Fixa no topo · 8 + 44 + 8 abaixo da área segura · fundo --bar com blur · fio 0,5 pt --sep só quando a página rola</dd><dt style="color:#6C6C71">Campo</dt><dd style="margin:0">Altura 44 · raio 12 · fundo --fill · padding esq. 12 · lupa 17 --text3 · gap 8</dd><dt style="color:#6C6C71">Texto</dt><dd style="margin:0">17 --text · placeholder “Buscar palavra” --text3 · cursor --ink</dd><dt style="color:#6C6C71">Limpar</dt><dd style="margin:0">Ícone 17, área 44 × 44, aparece só com texto; limpa e mantém o foco</dd><dt style="color:#6C6C71">Cancelar</dt><dd style="margin:0">17 --ink, aparece só com foco; fecha o teclado e volta ao verbete anterior</dd></dl>
+      </article>
+
+      <article style="background:#FFFFFF;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:20px">
+        <h3 style="margin:0;font-size:20px;font-weight:600">Item de sugestão</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <sc-for list="{{ themes }}" as="t" hint-placeholder-count="2">
+            <div style="{{ t.vars }}"><div style="background:var(--bg);color:var(--text);border-radius:12px;padding:4px 0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)">
+              <div style="height:48px;display:flex;align-items:center;gap:14px;padding-left:20px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"></circle><line x1="15.5" y1="15.5" x2="20.5" y2="20.5"></line></svg><span style="flex:1;height:48px;display:flex;align-items:center;border-bottom:0.5px solid var(--sep);font-size:17px"><span style="color:var(--text2)">sauda</span><span style="font-weight:600">de</span></span></div>
+              <div style="height:48px;display:flex;align-items:center;gap:14px;padding-left:20px;background:var(--fill)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"></circle><line x1="15.5" y1="15.5" x2="20.5" y2="20.5"></line></svg><span style="flex:1;height:48px;display:flex;align-items:center;border-bottom:0.5px solid var(--sep);font-size:17px"><span style="color:var(--text2)">sauda</span><span style="font-weight:600">ção romana</span></span></div>
+              <div style="height:48px;display:flex;align-items:center;gap:14px;padding-left:20px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"></circle><line x1="15.5" y1="15.5" x2="20.5" y2="20.5"></line></svg><span style="flex:1;font-size:17px"><span style="color:var(--text2)">Buscar </span><span style="font-weight:600">“saudz”</span></span></div>
+            </div></div>
+          </sc-for>
+        </div>
+        <dl style="margin:0;display:grid;grid-template-columns:120px minmax(0,1fr);gap:8px 16px;font-size:13px;line-height:19px"><dt style="color:#6C6C71">Medidas</dt><dd style="margin:0">Altura 48 · padding esq. 20 · lupa 17 --text3 · gap 14 · fio 0,5 pt a partir do texto</dd><dt style="color:#6C6C71">Texto</dt><dd style="margin:0">17 · parte digitada --text2 regular · completação --text semibold</dd><dt style="color:#6C6C71">Regras</dt><dd style="margin:0">Máx. 8 · compara sem acento e sem caixa · sem resultado: uma linha “Buscar “…”” · pressionado: fundo --fill (2ª linha)</dd><dt style="color:#6C6C71">Teclado</dt><dd style="margin:0">mousedown/touchstart com preventDefault, para o toque não fechar o teclado antes do clique</dd></dl>
+      </article>
+
+      <article style="background:#FFFFFF;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:20px">
+        <h3 style="margin:0;font-size:20px;font-weight:600">Bloco de definição</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <sc-for list="{{ themes }}" as="t" hint-placeholder-count="2">
+            <div style="{{ t.vars }}"><div style="background:var(--bg);color:var(--text);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:24px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)">
+              <div style="display:grid;grid-template-columns:24px minmax(0,1fr);column-gap:2px"><span style="font-size:17px;line-height:26px;font-weight:600;color:var(--text2)">1</span><div><p style="margin:0;font-size:17px;line-height:26px"><span style="display:inline-flex;align-items:center;height:22px;padding:0 7px;margin-right:8px;border-radius:6px;border:1px solid var(--chipbd);box-sizing:border-box;font-size:13px;font-weight:500;color:var(--text2);vertical-align:1px">Figurado</span>capacidade de se recuperar de situações difíceis</p><p style="margin:6px 0 0;padding-left:16px;font-size:16px;line-height:24px;font-style:italic;color:var(--text2)">A equipe superou a crise em poucos meses.</p></div></div>
+              <div style="display:grid;grid-template-columns:24px minmax(0,1fr);column-gap:2px"><span style="font-size:17px;line-height:26px;font-weight:600;color:var(--text2)">2</span><p style="margin:0;font-size:17px;line-height:26px">qualidade ou condição de quem é resiliente</p></div>
+            </div></div>
+          </sc-for>
+        </div>
+        <dl style="margin:0;display:grid;grid-template-columns:120px minmax(0,1fr);gap:8px 16px;font-size:13px;line-height:19px"><dt style="color:#6C6C71">Grade</dt><dd style="margin:0">Coluna de 24 para o número + texto · margem lateral 20 · <code style="font-size:12px">&lt;ol&gt;</code> semântica</dd><dt style="color:#6C6C71">Número</dt><dd style="margin:0">17/26 semibold --text2, algarismos tabulares</dd><dt style="color:#6C6C71">Texto</dt><dd style="margin:0">17/26 --text · <code style="font-size:12px">text-wrap: pretty</code> · 24 entre definições</dd><dt style="color:#6C6C71">Cabeçalho</dt><dd style="margin:0">Palavra 36/42 · classe 15/20 --text2, 6 abaixo · 28 até a 1ª definição · rodapé “Fonte” 40 abaixo</dd><dt style="color:#6C6C71">Extremos</dt><dd style="margin:0">Sem etiqueta e sem exemplo: só número + texto. Uma definição: mantém o número “1”.</dd></dl>
+      </article>
+
+      <article style="background:#FFFFFF;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:20px">
+        <h3 style="margin:0;font-size:20px;font-weight:600">Etiqueta de contexto</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <sc-for list="{{ themes }}" as="t" hint-placeholder-count="2">
+            <div style="{{ t.vars }}"><div style="background:var(--bg);color:var(--text);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)">
+              <div style="display:flex;gap:8px;flex-wrap:wrap"><span style="display:inline-flex;align-items:center;height:22px;padding:0 7px;border-radius:6px;border:1px solid var(--chipbd);box-sizing:border-box;font-size:13px;font-weight:500;color:var(--text2)">Física</span><span style="display:inline-flex;align-items:center;height:22px;padding:0 7px;border-radius:6px;border:1px solid var(--chipbd);box-sizing:border-box;font-size:13px;font-weight:500;color:var(--text2)">Figurado</span><span style="display:inline-flex;align-items:center;height:22px;padding:0 7px;border-radius:6px;border:1px solid var(--chipbd);box-sizing:border-box;font-size:13px;font-weight:500;color:var(--text2)">Informal</span></div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap"><span style="display:inline-flex;align-items:center;height:22px;padding:0 7px;border-radius:6px;background:var(--fill);font-size:13px;font-weight:500;color:var(--text2)">Física</span><span style="display:inline-flex;align-items:center;height:22px;padding:0 7px;border-radius:6px;background:var(--fill);font-size:13px;font-weight:500;color:var(--text2)">Figurado</span><span style="display:inline-flex;align-items:center;height:22px;padding:0 7px;border-radius:6px;background:var(--fill);font-size:13px;font-weight:500;color:var(--text2)">Informal</span></div>
+            </div></div>
+          </sc-for>
+        </div>
+        <dl style="margin:0;display:grid;grid-template-columns:120px minmax(0,1fr);gap:8px 16px;font-size:13px;line-height:19px"><dt style="color:#6C6C71">Medidas</dt><dd style="margin:0">Altura 22 · padding 0 7 · raio 6 · margem dir. 8 · inline, antes do texto, alinhada pela linha de base</dd><dt style="color:#6C6C71">Estilo</dt><dd style="margin:0">Contorno 1 pt --chipbd (padrão) ou fundo --fill (variante preenchida) · 13 medium --text2</dd><dt style="color:#6C6C71">Dados</dt><dd style="margin:0">Vem dos rótulos do Wikcionário, ex. a predefinição de contexto “Física”. Primeira letra maiúscula. Não é tocável.</dd></dl>
+      </article>
+
+      <article style="background:#FFFFFF;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:20px">
+        <h3 style="margin:0;font-size:20px;font-weight:600">Exemplo</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <sc-for list="{{ themes }}" as="t" hint-placeholder-count="2">
+            <div style="{{ t.vars }}"><div style="background:var(--bg);color:var(--text);border-radius:12px;padding:20px 20px 20px 46px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)">
+              <p style="margin:0;font-size:17px;line-height:26px">construção destinada a servir de moradia</p>
+              <p style="margin:6px 0 0;padding-left:16px;font-size:16px;line-height:24px;font-style:italic;color:var(--text2)">Eles compraram uma casa perto da praia.</p>
+            </div></div>
+          </sc-for>
+        </div>
+        <dl style="margin:0;display:grid;grid-template-columns:120px minmax(0,1fr);gap:8px 16px;font-size:13px;line-height:19px"><dt style="color:#6C6C71">Texto</dt><dd style="margin:0">16/24 itálico --text2 · sem aspas adicionadas</dd><dt style="color:#6C6C71">Posição</dt><dd style="margin:0">6 abaixo da definição · recuo 16 a partir do texto da definição</dd><dt style="color:#6C6C71">Vários</dt><dd style="margin:0">Empilhar com 4 entre eles; mostrar no máximo 2 por definição</dd></dl>
+      </article>
+
+      <article style="background:#FFFFFF;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:20px">
+        <h3 style="margin:0;font-size:20px;font-weight:600">Chip de sinônimo</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <sc-for list="{{ themes }}" as="t" hint-placeholder-count="2">
+            <div style="{{ t.vars }}"><div style="background:var(--bg);color:var(--text);border-radius:12px;padding:20px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)">
+              <p style="margin:0 0 12px;font-size:13px;line-height:18px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text2)">Sinônimos</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px"><span style="display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:18px;border:1px solid var(--chipbd);box-sizing:border-box;font-size:16px">adiar</span><span style="display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:18px;border:1px solid var(--chipbd);box-sizing:border-box;font-size:16px;background:var(--fill)">protelar</span><span style="display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:18px;border:1px solid var(--chipbd);box-sizing:border-box;font-size:16px">empurrar com a barriga</span></div>
+            </div></div>
+          </sc-for>
+        </div>
+        <dl style="margin:0;display:grid;grid-template-columns:120px minmax(0,1fr);gap:8px 16px;font-size:13px;line-height:19px"><dt style="color:#6C6C71">Medidas</dt><dd style="margin:0">Altura 36 · área de toque 44 (::before com inset -5 0) · padding 0 14 · raio 18 · gap 8 · quebra de linha livre</dd><dt style="color:#6C6C71">Estilo</dt><dd style="margin:0">Contorno 1 pt --chipbd · 16 --text · pressionado: fundo --fill (“protelar”)</dd><dt style="color:#6C6C71">Seção</dt><dd style="margin:0">Rótulo “SINÔNIMOS” 13 semibold caixa-alta · 36 acima · 12 até os chips · some quando não há sinônimos</dd><dt style="color:#6C6C71">Ação</dt><dd style="margin:0">Toque faz nova busca e volta ao topo</dd></dl>
+      </article>
+
+      <article style="background:#FFFFFF;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:20px">
+        <h3 style="margin:0;font-size:20px;font-weight:600">Item de histórico</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <sc-for list="{{ themes }}" as="t" hint-placeholder-count="2">
+            <div style="{{ t.vars }}"><div style="background:var(--bg);color:var(--text);border-radius:12px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)">
+              <div style="height:52px;display:flex;align-items:center;justify-content:space-between;margin-left:20px;padding-right:20px;border-bottom:0.5px solid var(--sep)"><span style="font-size:17px">saudade</span><span style="font-size:15px;color:var(--text2)">hoje</span></div>
+              <div style="position:relative;height:52px;background:var(--dangerbg)"><span style="position:absolute;right:0;top:0;width:88px;height:52px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;font-size:15px;font-weight:600">Apagar</span><div style="position:absolute;inset:0;right:88px;background:var(--bg);display:flex;align-items:center;justify-content:space-between;padding-right:20px;border-bottom:0.5px solid var(--sep)"><span style="font-size:17px;margin-left:-68px">resiliência</span><span style="font-size:15px;color:var(--text2)">ontem</span></div></div>
+              <div style="height:52px;display:flex;align-items:center;justify-content:space-between;margin-left:20px;padding-right:20px"><span style="font-size:17px">efêmero</span><span style="font-size:15px;color:var(--text2)">3 dias atrás</span></div>
+            </div></div>
+          </sc-for>
+        </div>
+        <dl style="margin:0;display:grid;grid-template-columns:120px minmax(0,1fr);gap:8px 16px;font-size:13px;line-height:19px"><dt style="color:#6C6C71">Medidas</dt><dd style="margin:0">Altura 52 · palavra 17 --text à esq. · data 15 --text2 à dir. · fio 0,5 pt a partir de 20</dd><dt style="color:#6C6C71">Deslizar</dt><dd style="margin:0">← revela “Apagar” de 88 (fundo --dangerbg, 15 semibold branco) · soltar além de 40 deixa aberto · além de 220 apaga direto · tocar em outra linha fecha</dd><dt style="color:#6C6C71">Apagar</dt><dd style="margin:0">A linha recolhe a altura em 220 ms</dd><dt style="color:#6C6C71">Limpar tudo</dt><dd style="margin:0">Botão 17 --ink no cabeçalho · abre folha: título 13 --text2, “Limpar tudo” 20 --danger, “Cancelar” 20 semibold · raio 14 · margem 8</dd><dt style="color:#6C6C71">Data</dt><dd style="margin:0">hoje · ontem · N dias atrás · N semanas atrás</dd></dl>
+      </article>
+
+      <article style="background:#FFFFFF;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:20px">
+        <h3 style="margin:0;font-size:20px;font-weight:600">Barra de abas</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <sc-for list="{{ themes }}" as="t" hint-placeholder-count="2">
+            <div style="{{ t.vars }}"><div style="background:var(--bg);border-radius:12px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)">
+              <div style="height:83px;display:flex;align-items:flex-start;background:var(--bar);border-top:0.5px solid var(--sep)">
+                <div style="flex:1;height:49px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--ink)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"></circle><line x1="15.5" y1="15.5" x2="20.5" y2="20.5"></line></svg><span style="font-size:10px;font-weight:500">Buscar</span></div>
+                <div style="flex:1;height:49px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--text3)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg><span style="font-size:10px;font-weight:500">Histórico</span></div>
+              </div>
+            </div></div>
+          </sc-for>
+        </div>
+        <dl style="margin:0;display:grid;grid-template-columns:120px minmax(0,1fr);gap:8px 16px;font-size:13px;line-height:19px"><dt style="color:#6C6C71">Medidas</dt><dd style="margin:0">49 + área segura inferior (34) · cada aba ocupa metade da largura · ícone 26 + rótulo 10 medium</dd><dt style="color:#6C6C71">Cores</dt><dd style="margin:0">Ativa --ink · inativa --text3 · fundo --bar com blur · fio superior 0,5 pt --sep</dd><dt style="color:#6C6C71">Regras</dt><dd style="margin:0">Fica atrás do teclado · tocar na aba ativa leva ao topo · cada aba guarda seu estado</dd></dl>
+      </article>
+
+      <article style="background:#FFFFFF;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:20px">
+        <h3 style="margin:0;font-size:20px;font-weight:600">Mensagens de estado</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <sc-for list="{{ themes }}" as="t" hint-placeholder-count="2">
+            <div style="{{ t.vars }}"><div style="background:var(--bg);color:var(--text);border-radius:12px;padding:24px 20px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)">
+              <p style="margin:0;font-size:22px;line-height:28px;font-weight:600">Sem conexão</p>
+              <p style="margin:6px 0 0;font-size:17px;line-height:24px;color:var(--text2)">Verifique sua internet e tente de novo.</p>
+              <span style="display:inline-flex;align-items:center;margin-top:24px;height:48px;padding:0 24px;border-radius:14px;background:var(--ink);color:var(--onink);font-size:17px;font-weight:600">Tentar de novo</span>
+            </div></div>
+          </sc-for>
+        </div>
+        <dl style="margin:0;display:grid;grid-template-columns:120px minmax(0,1fr);gap:8px 16px;font-size:13px;line-height:19px"><dt style="color:#6C6C71">Texto</dt><dd style="margin:0">Título 22/28 semibold --text · corpo 17/24 --text2 · 6 entre eles · 40 de margem superior</dd><dt style="color:#6C6C71">Botão</dt><dd style="margin:0">Altura 48 · padding 0 24 · raio 14 · fundo --ink · texto --onink 17 semibold · pressionado: opacidade 0,7</dd><dt style="color:#6C6C71">Alinhamento</dt><dd style="margin:0">À esquerda quando há ação ou lista a seguir (não encontrada, sem conexão); centralizado em telas vazias (dica de busca, histórico vazio)</dd><dt style="color:#6C6C71">Carregando</dt><dd style="margin:0">Palavra + barras de esqueleto --skel, altura 15, raio 6; pulsa 1,4 s; aparece após 300 ms</dd></dl>
+      </article>
+
+    </div>
+  </div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;serif&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Verbete&quot;},&quot;synStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;chips&quot;,&quot;links&quot;],&quot;default&quot;:&quot;chips&quot;,&quot;tsType&quot;:&quot;'chips'|'links'&quot;,&quot;section&quot;:&quot;Verbete&quot;},&quot;tagStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;contorno&quot;,&quot;preenchida&quot;],&quot;default&quot;:&quot;contorno&quot;,&quot;tsType&quot;:&quot;'contorno'|'preenchida'&quot;,&quot;section&quot;:&quot;Verbete&quot;}}">
+const L = {'--bg':'#FFFFFF','--text':'#0A0A0A','--text2':'#5C5C61','--text3':'#6C6C71','--ink':'#0A0A0A','--onink':'#FFFFFF','--fill':'#EFEFF1','--sep':'rgba(0,0,0,.14)','--chipbd':'rgba(0,0,0,.2)','--bar':'rgba(255,255,255,.86)','--dangerbg':'#D70015'};
+const D = {'--bg':'#000000','--text':'#F5F5F7','--text2':'#A1A1A6','--text3':'#8D8D93','--ink':'#F5F5F7','--onink':'#0A0A0A','--fill':'#1C1C1E','--sep':'rgba(255,255,255,.16)','--chipbd':'rgba(255,255,255,.26)','--bar':'rgba(12,12,12,.82)','--dangerbg':'#D92D20'};
+const TOK = [
+  ['--bg','Fundo da tela','#FFFFFF','#000000'],
+  ['--text','Texto principal: palavra, definição, listas','#0A0A0A','#F5F5F7'],
+  ['--text2','Secundário: classe, exemplo, datas, etiquetas','#5C5C61','#A1A1A6'],
+  ['--text3','Ícones, placeholder, aba inativa','#6C6C71','#8D8D93'],
+  ['--ink','Destaque: botões, aba ativa, cursor, “Cancelar”','#0A0A0A','#F5F5F7'],
+  ['--onink','Texto sobre --ink','#FFFFFF','#0A0A0A'],
+  ['--fill','Campo de busca, estado pressionado','#EFEFF1','#1C1C1E'],
+  ['--sep','Separadores de 0,5 pt','rgba(0,0,0,.14)','rgba(255,255,255,.16)'],
+  ['--chipbd','Borda de chip e etiqueta','rgba(0,0,0,.20)','rgba(255,255,255,.26)'],
+  ['--bar','Barras translúcidas (topo e abas)','rgba(255,255,255,.86)','rgba(12,12,12,.82)'],
+  ['--sheet','Folha de confirmação','#FFFFFF','#2C2C2E'],
+  ['--scrim','Véu atrás da folha','rgba(0,0,0,.32)','rgba(0,0,0,.55)'],
+  ['--skel','Esqueleto de carregamento','#EDEDEF','#1C1C1E'],
+  ['--danger','Texto destrutivo (folha)','#D70015','#FF6961'],
+  ['--dangerbg','Fundo de “Apagar” ao deslizar','#D70015','#D92D20']
+];
+class Component extends DCLogic {
+  state = {liveTheme: (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'escuro' : 'claro', offline: false, reset: 0};
+  renderVals() {
+    const p = this.props, s = this.state;
+    const claro = s.liveTheme === 'claro';
+    return {
+      serif: p.serif ?? true, synStyle: p.synStyle ?? 'chips', tagStyle: p.tagStyle ?? 'contorno',
+      liveTheme: s.liveTheme, offline: s.offline, reset: s.reset,
+      claroBg: claro ? '#FFFFFF' : 'transparent', escuroBg: claro ? 'transparent' : '#FFFFFF',
+      claroSh: claro ? '0 1px 3px rgba(0,0,0,.15)' : 'none', escuroSh: claro ? 'none' : '0 1px 3px rgba(0,0,0,.15)',
+      offTrack: s.offline ? '#0A0A0A' : '#C7C7C4', offKnob: s.offline ? 21 : 3,
+      setClaro: () => this.setState({liveTheme: 'claro'}),
+      setEscuro: () => this.setState({liveTheme: 'escuro'}),
+      toggleOffline: () => this.setState(st => ({offline: !st.offline})),
+      doReset: () => this.setState(st => ({reset: st.reset + 1})),
+      themes: [{vars: {display: 'contents', ...L}}, {vars: {display: 'contents', ...D}}],
+      colorTokens: TOK.map(([name, use, light, dark]) => ({name, use, light, dark}))
+    };
+  }
+}
+</script>
+</body>
+</html>

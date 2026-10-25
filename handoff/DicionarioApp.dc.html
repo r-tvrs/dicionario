@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><style>@keyframes dcPulse{0%,100%{opacity:1}50%{opacity:.4}}</style></helmet>
+<div ref="{{ setRoot }}" data-dc-root="1" style="{{ themeVars }}">
+<div lang="pt-BR" style="width:414px;height:868px;padding:12px;box-sizing:border-box;border-radius:64px;background:#111113;box-shadow:inset 0 0 0 1.5px #2c2c30, 0 24px 48px -18px rgba(0,0,0,.3);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased">
+<div style="position:relative;width:390px;height:844px;border-radius:52px;overflow:hidden;background:var(--bg);color:var(--text);isolation:isolate">
+
+<sc-if value="{{ isBuscar }}" hint-placeholder-val="{{ true }}">
+  <div ref="{{ setScrollEl }}" data-scroll="buscar" onScroll="{{ onScroll }}" style="position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;padding:107px 0 115px;box-sizing:border-box;scrollbar-width:none">
+    <sc-if value="{{ showHint }}">
+      <p style="margin:0;padding:160px 40px 0;text-align:center;font-size:17px;line-height:24px;color:var(--text2)">Digite uma palavra</p>
+    </sc-if>
+
+    <sc-if value="{{ showEntry }}">
+      <article style="padding:12px 20px 0">
+        <h1 style="margin:0;font-family:var(--headfont);font-size:var(--headsize);line-height:1.17;font-weight:var(--headweight);letter-spacing:var(--headls);text-wrap:balance">{{ entry.word }}</h1>
+        <p style="margin:6px 0 0;font-size:15px;line-height:20px;color:var(--text2)">{{ entry.pos }}</p>
+        <ol style="list-style:none;margin:28px 0 0;padding:0;display:flex;flex-direction:column;gap:24px">
+          <sc-for list="{{ entry.defs }}" as="d" hint-placeholder-count="3">
+            <li style="display:grid;grid-template-columns:24px minmax(0,1fr);column-gap:2px">
+              <span style="font-size:17px;line-height:26px;font-weight:600;color:var(--text2);font-variant-numeric:tabular-nums">{{ d.n }}</span>
+              <div>
+                <p style="margin:0;font-size:17px;line-height:26px;text-wrap:pretty"><sc-if value="{{ d.tag }}"><span style="display:inline-flex;align-items:center;height:22px;padding:0 7px;margin-right:8px;border-radius:6px;border:1px solid var(--tagbd);background:var(--tagbg);box-sizing:border-box;font-size:13px;font-weight:500;color:var(--text2);vertical-align:1px">{{ d.tag }}</span></sc-if>{{ d.text }}</p>
+                <sc-if value="{{ d.ex }}"><p style="margin:6px 0 0;padding-left:16px;font-size:16px;line-height:24px;font-style:italic;color:var(--text2);text-wrap:pretty">{{ d.ex }}</p></sc-if>
+              </div>
+            </li>
+          </sc-for>
+        </ol>
+        <sc-if value="{{ entry.hasSyns }}">
+          <section style="margin-top:36px">
+            <h2 style="margin:0 0 12px;font-size:13px;line-height:18px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text2)">Sinônimos</h2>
+            <sc-if value="{{ synChips }}">
+              <div style="display:flex;flex-wrap:wrap;gap:8px">
+                <sc-for list="{{ entry.syns }}" as="s" hint-placeholder-count="5">
+                  <button onClick="{{ s.go }}" style="position:relative;height:36px;padding:0 14px;border-radius:18px;border:1px solid var(--chipbd);background:transparent;color:var(--text);font:inherit;font-size:16px;cursor:pointer" style-active="background:var(--fill)" style-before="content:'';position:absolute;inset:-5px -1px">{{ s.word }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ synLinks }}">
+              <p style="margin:0;font-size:17px;line-height:32px"><sc-for list="{{ entry.syns }}" as="s"><a onClick="{{ s.go }}" style="color:var(--text);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;text-decoration-color:var(--chipbd);cursor:pointer">{{ s.word }}</a>{{ s.sep }}</sc-for></p>
+            </sc-if>
+          </section>
+        </sc-if>
+        <p style="margin:40px 0 0;font-size:13px;line-height:18px;color:var(--text2)">Fonte: Wikcionário · CC BY-SA 4.0</p>
+      </article>
+    </sc-if>
+
+    <sc-if value="{{ showLoading }}">
+      <article aria-busy="true" style="padding:12px 20px 0">
+        <h1 style="margin:0;font-family:var(--headfont);font-size:var(--headsize);line-height:1.17;font-weight:var(--headweight);letter-spacing:var(--headls)">{{ word }}</h1>
+        {{ skeleton }}
+      </article>
+    </sc-if>
+
+    <sc-if value="{{ showNotFound }}">
+      <div style="padding:40px 20px 0">
+        <h2 style="margin:0;font-size:22px;line-height:28px;font-weight:600">Palavra não encontrada</h2>
+        <p style="margin:6px 0 0;font-size:17px;line-height:24px;color:var(--text2)">Nenhum verbete para “{{ word }}”.</p>
+        <sc-if value="{{ hasDym }}">
+          <p style="margin:32px 0 4px;font-size:15px;line-height:20px;font-weight:600;color:var(--text2)">Você quis dizer:</p>
+          <ul style="list-style:none;margin:0;padding:0">
+            <sc-for list="{{ dym }}" as="w" hint-placeholder-count="3">
+              <li><button onClick="{{ w.go }}" style="width:100%;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0;border:0;border-bottom:0.5px solid var(--sep);background:transparent;font:inherit;font-size:17px;color:var(--text);text-align:left;cursor:pointer" style-active="opacity:.5"><span>{{ w.word }}</span><svg width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="var(--text3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 7l-5 5.5"></path></svg></button></li>
+            </sc-for>
+          </ul>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ showOffline }}">
+      <div style="padding:40px 20px 0">
+        <h2 style="margin:0;font-size:22px;line-height:28px;font-weight:600">Sem conexão</h2>
+        <p style="margin:6px 0 0;font-size:17px;line-height:24px;color:var(--text2)">Verifique sua internet e tente de novo.</p>
+        <button onClick="{{ retry }}" style="margin-top:24px;height:48px;padding:0 24px;border:0;border-radius:14px;background:var(--ink);color:var(--onink);font:inherit;font-size:17px;font-weight:600;cursor:pointer" style-active="opacity:.7">Tentar de novo</button>
+      </div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ showSuggest }}">
+    <div style="position:absolute;top:107px;left:0;right:0;bottom:0;z-index:2;background:var(--bg);overflow-y:auto">
+      <ul style="list-style:none;margin:0;padding:0">
+        <sc-for list="{{ suggestions }}" as="s" hint-placeholder-count="8">
+          <li><button onMouseDown="{{ keep }}" onClick="{{ s.go }}" style="width:100%;height:48px;display:flex;align-items:center;gap:14px;padding:0 0 0 20px;border:0;background:transparent;font:inherit;color:var(--text);text-align:left;cursor:pointer" style-active="background:var(--fill)">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2.4" stroke-linecap="round" style="flex:none"><circle cx="10.5" cy="10.5" r="6.5"></circle><line x1="15.5" y1="15.5" x2="20.5" y2="20.5"></line></svg>
+            <span style="flex:1;min-width:0;height:48px;display:flex;align-items:center;border-bottom:0.5px solid var(--sep);font-size:17px;white-space:pre;overflow:hidden"><span style="color:var(--text2)">{{ s.head }}</span><span style="font-weight:600">{{ s.tail }}</span></span>
+          </button></li>
+        </sc-for>
+      </ul>
+    </div>
+  </sc-if>
+
+  <div style="position:absolute;top:0;left:0;right:0;z-index:3;padding:55px 16px 8px;display:flex;align-items:center;gap:12px;background:var(--bar);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:0.5px solid {{ headLine }}">
+    <label style="position:relative;flex:1;min-width:0;height:44px;border-radius:12px;background:var(--fill);display:flex;align-items:center;padding-left:12px;gap:8px;cursor:text">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2.4" stroke-linecap="round" style="flex:none"><circle cx="10.5" cy="10.5" r="6.5"></circle><line x1="15.5" y1="15.5" x2="20.5" y2="20.5"></line></svg>
+      <div style="position:relative;flex:1;min-width:0;height:44px">
+        <sc-if value="{{ showPlaceholder }}"><span style="position:absolute;left:0;top:11px;font-size:17px;line-height:22px;color:var(--text3);pointer-events:none">Buscar palavra</span></sc-if>
+        <sc-if value="{{ fakeCaret }}"><div style="position:absolute;left:0;top:11px;height:22px;display:flex;align-items:center;pointer-events:none"><span style="visibility:hidden;font-size:17px;white-space:pre">{{ query }}</span><span style="width:2px;height:21px;border-radius:1px;background:var(--ink)"></span></div></sc-if>
+        <input ref="{{ setInputEl }}" data-search-input="1" value="{{ query }}" onChange="{{ onInput }}" onFocus="{{ onFocus }}" onBlur="{{ onBlur }}" onKeyDown="{{ onKey }}" type="text" enterKeyHint="search" autoComplete="off" autoCorrect="off" autoCapitalize="none" spellCheck="false" aria-label="Buscar palavra" style="position:absolute;inset:0;width:100%;height:44px;border:0;outline:none;background:transparent;padding:0;margin:0;font:inherit;font-size:17px;color:var(--text);caret-color:var(--ink)">
+      </div>
+      <sc-if value="{{ hasQuery }}">
+        <button onMouseDown="{{ keep }}" onClick="{{ clear }}" aria-label="Limpar" style="flex:none;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:0;background:transparent;padding:0;cursor:pointer"><svg width="17" height="17" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="var(--text3)"></circle><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="var(--fill)" stroke-width="2.2" stroke-linecap="round"></path></svg></button>
+      </sc-if>
+    </label>
+    <sc-if value="{{ focused }}">
+      <button onClick="{{ cancel }}" style="flex:none;height:44px;padding:0 4px;border:0;background:transparent;font:inherit;font-size:17px;color:var(--ink);cursor:pointer">Cancelar</button>
+    </sc-if>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isHist }}">
+  <div style="position:absolute;top:0;left:0;right:0;height:108px;z-index:3;padding:51px 16px 0 20px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;background:var(--bar);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:0.5px solid {{ histLine }}">
+    <h1 style="margin:0;font-size:34px;line-height:41px;font-weight:700;letter-spacing:.2px">Histórico</h1>
+    <sc-if value="{{ hasHist }}"><button onClick="{{ askClear }}" style="height:44px;padding:0 4px;border:0;background:transparent;font:inherit;font-size:17px;color:var(--ink);cursor:pointer">Limpar tudo</button></sc-if>
+  </div>
+  <sc-if value="{{ hasHist }}">
+    <div onScroll="{{ onHistScroll }}" style="position:absolute;top:0;left:0;right:0;bottom:0;padding:108px 0 91px;box-sizing:border-box;overflow-y:auto;scrollbar-width:none">
+      <ul style="list-style:none;margin:0;padding:0">
+        <sc-for list="{{ rows }}" as="r" hint-placeholder-count="6">
+          <li style="position:relative;overflow:hidden;height:{{ r.h }}px;transition:height .22s ease">
+            <button onClick="{{ r.del }}" style="position:absolute;top:0;bottom:0;right:0;left:40%;border:0;padding:0;background:var(--dangerbg);color:#FFFFFF;font:inherit;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:flex-end;cursor:pointer"><span style="width:88px;text-align:center">Apagar</span></button>
+            <div onPointerDown="{{ r.down }}" onPointerMove="{{ rowMove }}" onPointerUp="{{ rowUp }}" onPointerCancel="{{ rowUp }}" style="position:relative;height:52px;padding-left:20px;background:var(--bg);transform:translateX({{ r.tx }}px);transition:{{ r.trans }};touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:pointer">
+              <div style="height:52px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-right:20px;border-bottom:0.5px solid var(--sep);box-sizing:border-box">
+                <span style="min-width:0;font-size:17px;line-height:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.word }}</span>
+                <span style="flex:none;font-size:15px;line-height:20px;color:var(--text2)">{{ r.when }}</span>
+              </div>
+            </div>
+          </li>
+        </sc-for>
+      </ul>
+    </div>
+  </sc-if>
+  <sc-if value="{{ noHist }}">
+    <div style="position:absolute;top:108px;left:0;right:0;bottom:83px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 40px 40px;text-align:center">
+      <h2 style="margin:0;font-size:22px;line-height:28px;font-weight:600">Nenhuma busca ainda</h2>
+      <p style="margin:8px 0 0;font-size:17px;line-height:24px;color:var(--text2);text-wrap:balance">As palavras que você buscar aparecem aqui.</p>
+      <button onClick="{{ ctaSearch }}" style="margin-top:28px;height:48px;padding:0 24px;border:0;border-radius:14px;background:var(--ink);color:var(--onink);font:inherit;font-size:17px;font-weight:600;cursor:pointer" style-active="opacity:.7">Buscar uma palavra</button>
+    </div>
+  </sc-if>
+  <sc-if value="{{ confirm }}">
+    <div onClick="{{ cancelClear }}" style="position:absolute;inset:0;z-index:8;background:var(--scrim)"></div>
+    <div role="dialog" style="position:absolute;left:8px;right:8px;bottom:42px;z-index:9;display:flex;flex-direction:column;gap:8px">
+      <div style="border-radius:14px;overflow:hidden;background:var(--sheet)">
+        <div style="padding:14px 16px;text-align:center">
+          <p style="margin:0;font-size:13px;line-height:18px;font-weight:600;color:var(--text2)">Limpar todo o histórico?</p>
+          <p style="margin:2px 0 0;font-size:13px;line-height:18px;color:var(--text2)">Esta ação não pode ser desfeita.</p>
+        </div>
+        <button onClick="{{ doClear }}" style="display:block;width:100%;height:56px;border:0;border-top:0.5px solid var(--sep);background:transparent;font:inherit;font-size:20px;color:var(--danger);cursor:pointer" style-active="background:var(--fill)">Limpar tudo</button>
+      </div>
+      <button onClick="{{ cancelClear }}" style="height:56px;border:0;border-radius:14px;background:var(--sheet);font:inherit;font-size:20px;font-weight:600;color:var(--ink);cursor:pointer" style-active="background:var(--fill)">Cancelar</button>
+    </div>
+  </sc-if>
+</sc-if>
+
+<nav style="position:absolute;left:0;right:0;bottom:0;z-index:4;height:83px;display:flex;align-items:flex-start;background:var(--bar);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-top:0.5px solid var(--sep)">
+  <button onClick="{{ goBuscar }}" style="flex:1;height:49px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:0;background:transparent;padding:0;font:inherit;color:{{ tabBColor }};cursor:pointer">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"></circle><line x1="15.5" y1="15.5" x2="20.5" y2="20.5"></line></svg>
+    <span style="font-size:10px;line-height:12px;font-weight:500">Buscar</span>
+  </button>
+  <button onClick="{{ goHist }}" style="flex:1;height:49px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:0;background:transparent;padding:0;font:inherit;color:{{ tabHColor }};cursor:pointer">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>
+    <span style="font-size:10px;line-height:12px;font-weight:500">Histórico</span>
+  </button>
+</nav>
+
+<sc-if value="{{ showKb }}">
+  <div onMouseDown="{{ keep }}" style="position:absolute;left:0;right:0;bottom:0;height:336px;z-index:6;background:var(--kb);display:flex;flex-direction:column;user-select:none;-webkit-user-select:none">
+    <div style="height:44px;display:flex;align-items:center;padding:0 4px">
+      <sc-for list="{{ predictions }}" as="p" hint-placeholder-count="3">
+        <sc-if value="{{ p.div }}"><span style="flex:none;width:1px;height:22px;background:var(--keysp)"></span></sc-if>
+        <button onClick="{{ p.go }}" style="flex:1;min-width:0;height:36px;border:0;background:transparent;font:inherit;font-size:16px;color:var(--kbtext);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer">{{ p.label }}</button>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;padding:6px 3px 0">
+      <div style="display:flex;justify-content:center;gap:6px">
+        <sc-for list="{{ kb1 }}" as="k"><button onClick="{{ k.press }}" style="width:33px;height:42px;padding:0;border:0;border-radius:5px;background:var(--key);box-shadow:0 1px 0 var(--keysh);color:var(--kbtext);font:inherit;font-size:22px;cursor:pointer" style-active="background:var(--keysp)">{{ k.c }}</button></sc-for>
+      </div>
+      <div style="display:flex;justify-content:center;gap:6px">
+        <sc-for list="{{ kb2 }}" as="k"><button onClick="{{ k.press }}" style="width:33px;height:42px;padding:0;border:0;border-radius:5px;background:var(--key);box-shadow:0 1px 0 var(--keysh);color:var(--kbtext);font:inherit;font-size:22px;cursor:pointer" style-active="background:var(--keysp)">{{ k.c }}</button></sc-for>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <button style="width:42px;height:42px;padding:0;border:0;border-radius:5px;background:var(--keysp);box-shadow:0 1px 0 var(--keysh);color:var(--kbtext);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3.5L20.5 13H15.5V20.5H8.5V13H3.5Z"></path></svg></button>
+        <div style="display:flex;gap:6px">
+          <sc-for list="{{ kb3 }}" as="k"><button onClick="{{ k.press }}" style="width:33px;height:42px;padding:0;border:0;border-radius:5px;background:var(--key);box-shadow:0 1px 0 var(--keysh);color:var(--kbtext);font:inherit;font-size:22px;cursor:pointer" style-active="background:var(--keysp)">{{ k.c }}</button></sc-for>
+        </div>
+        <button onClick="{{ del }}" style="width:42px;height:42px;padding:0;border:0;border-radius:5px;background:var(--keysp);box-shadow:0 1px 0 var(--keysh);color:var(--kbtext);display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="24" height="20" viewBox="0 0 26 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M8.5 2.5H22a1.5 1.5 0 0 1 1.5 1.5v12a1.5 1.5 0 0 1-1.5 1.5H8.5L2 10Z"></path><path d="M12 7l6 6M18 7l-6 6"></path></svg></button>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button style="width:87px;height:42px;padding:0;border:0;border-radius:5px;background:var(--keysp);box-shadow:0 1px 0 var(--keysh);color:var(--kbtext);font:inherit;font-size:16px">123</button>
+        <button onClick="{{ space }}" style="flex:1;height:42px;padding:0;border:0;border-radius:5px;background:var(--key);box-shadow:0 1px 0 var(--keysh);color:var(--kbtext);font:inherit;font-size:16px;cursor:pointer" style-active="background:var(--keysp)">espaço</button>
+        <button onClick="{{ submitKb }}" style="width:87px;height:42px;padding:0;border:0;border-radius:5px;background:var(--keysp);box-shadow:0 1px 0 var(--keysh);color:var(--kbtext);font:inherit;font-size:16px;cursor:pointer">buscar</button>
+      </div>
+    </div>
+    <div style="position:relative;flex:1;color:var(--kbtext)">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="position:absolute;left:24px;top:14px"><circle cx="12" cy="12" r="9"></circle><ellipse cx="12" cy="12" rx="4" ry="9"></ellipse><line x1="3" y1="12" x2="21" y2="12"></line></svg>
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="position:absolute;right:24px;top:14px"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5.5 11a6.5 6.5 0 0 0 13 0"></path><line x1="12" y1="17.5" x2="12" y2="21"></line></svg>
+    </div>
+  </div>
+</sc-if>
+
+<div style="position:absolute;top:0;left:0;right:0;height:47px;z-index:10;pointer-events:none;color:var(--text)">
+  <div style="position:absolute;left:0;top:0;width:114px;height:47px;display:flex;align-items:center;justify-content:center;padding-top:3px;box-sizing:border-box;font-size:17px;font-weight:600;letter-spacing:-.3px">9:41</div>
+  <div style="position:absolute;right:0;top:0;width:114px;height:47px;display:flex;align-items:center;justify-content:center;gap:6px;padding-top:3px;box-sizing:border-box">
+    <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"></rect><rect x="5" y="5.5" width="3" height="6.5" rx="1"></rect><rect x="10" y="3" width="3" height="9" rx="1"></rect><rect x="15" y="0" width="3" height="12" rx="1"></rect></svg>
+    <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1.5 4.6a9.5 9.5 0 0 1 13 0"></path><path d="M4.2 7.4a5.8 5.8 0 0 1 7.6 0"></path><circle cx="8" cy="10.2" r="1.4" fill="currentColor" stroke="none"></circle></svg>
+    <svg width="27" height="13" viewBox="0 0 27 13"><rect x="0.5" y="0.5" width="22" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".4"></rect><rect x="2.5" y="2.5" width="18" height="8" rx="2" fill="currentColor"></rect><path d="M24.5 4.5v4c.8-.3 1.5-1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"></path></svg>
+  </div>
+  <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:162px;height:32px;border-radius:0 0 21px 21px;background:#000"></div>
+</div>
+<div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:var(--text);z-index:11;pointer-events:none"></div>
+
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:414,&quot;height&quot;:868},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;claro&quot;,&quot;escuro&quot;],&quot;default&quot;:&quot;claro&quot;,&quot;tsType&quot;:&quot;'claro'|'escuro'&quot;},&quot;screen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;inicio&quot;,&quot;vazio&quot;,&quot;sugestoes&quot;,&quot;verbete&quot;,&quot;sinonimos&quot;,&quot;longo&quot;,&quot;naoencontrada&quot;,&quot;semconexao&quot;,&quot;carregando&quot;,&quot;historico&quot;,&quot;historico-confirmar&quot;,&quot;historico-vazio&quot;],&quot;default&quot;:&quot;inicio&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;serif&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;synStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;chips&quot;,&quot;links&quot;],&quot;default&quot;:&quot;chips&quot;,&quot;tsType&quot;:&quot;'chips'|'links'&quot;},&quot;tagStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;contorno&quot;,&quot;preenchida&quot;],&quot;default&quot;:&quot;contorno&quot;,&quot;tsType&quot;:&quot;'contorno'|'preenchida'&quot;},&quot;offline&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;resetToken&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;number&quot;}}">
+const DICT = {
+  'saudade': {pos:'Substantivo · feminino', defs:[
+    {t:'sentimento de nostalgia causado pela ausência ou pela perda de alguém, de algo ou de um lugar', ex:'Sentia saudade da cidade onde cresceu.'},
+    {tag:'No plural', t:'lembranças afetuosas enviadas a quem está longe', ex:'Mande saudades à sua mãe.'}]},
+  'saudar': {pos:'Verbo', defs:[
+    {t:'cumprimentar alguém com palavras ou gestos', ex:'Saudou os vizinhos com um aceno.'},
+    {t:'receber com alegria; aclamar', ex:'O público saudou a chegada da seleção.'}]},
+  'saudação': {pos:'Substantivo · feminino', defs:[
+    {t:'ato ou efeito de saudar; cumprimento'},
+    {t:'palavras ou gestos com que se cumprimenta alguém', ex:'Fez uma breve saudação antes do discurso.'}]},
+  'saudações': {pos:'Substantivo · feminino plural', defs:[{t:'plural de saudação'},{tag:'Interjeição', t:'usada para cumprimentar, sobretudo em cartas e mensagens', ex:'Saudações a todos!'}]},
+  'saudades': {pos:'Substantivo · feminino plural', defs:[{t:'plural de saudade'}]},
+  'saudadense': {pos:'Adjetivo e substantivo · dois gêneros', defs:[{t:'relativo a Saudades, município de Santa Catarina'},{t:'natural ou habitante de Saudades'}]},
+  'saudação romana': {pos:'Locução substantiva · feminino', defs:[{tag:'História', t:'gesto de cumprimento com o braço direito estendido para a frente e a palma da mão voltada para baixo'}]},
+  'saudavelmente': {pos:'Advérbio', defs:[{t:'de modo saudável', ex:'Procura viver saudavelmente.'}]},
+  'resiliência': {pos:'Substantivo · feminino', defs:[
+    {tag:'Física', t:'propriedade que um corpo tem de retomar a forma original depois de sofrer uma deformação elástica', ex:'A resiliência do aço permite que a mola volte ao tamanho inicial.'},
+    {tag:'Figurado', t:'capacidade de se recuperar de situações difíceis ou de se adaptar a mudanças', ex:'Com resiliência, a equipe superou a crise em poucos meses.'},
+    {tag:'Ecologia', t:'capacidade de um ecossistema de voltar ao equilíbrio depois de uma perturbação'},
+    {t:'qualidade ou condição de quem é resiliente'}]},
+  'procrastinar': {pos:'Verbo', defs:[{t:'deixar para fazer algo mais tarde'}], syns:['adiar','deferir','demorar','empurrar com a barriga','espaçar','protelar','usar de delongas']},
+  'casa': {pos:'Substantivo · feminino', defs:[
+    {t:'construção destinada a servir de moradia', ex:'Eles compraram uma casa perto da praia.'},
+    {t:'lar; o lugar onde se vive com a família', ex:'Depois do trabalho, foi direto para casa.'},
+    {t:'estabelecimento comercial ou de serviços', ex:'Abriu uma casa de câmbio no centro da cidade.'},
+    {tag:'Por extensão', t:'família, sobretudo a de origem nobre; dinastia', ex:'A casa de Bragança governou Portugal por quase três séculos.'},
+    {tag:'Vestuário', t:'abertura na roupa por onde passa o botão', ex:'A casa do botão ficou larga demais.'},
+    {tag:'Matemática', t:'posição ocupada por um algarismo em um número', ex:'Arredonde o resultado para duas casas decimais.'},
+    {tag:'Jogos', t:'cada uma das divisões de um tabuleiro'}]},
+  'adiar': {pos:'Verbo', defs:[{t:'transferir para outro dia ou momento; deixar para depois', ex:'Adiaram a reunião para segunda-feira.'}], syns:['postergar','procrastinar','protelar']},
+  'postergar': {pos:'Verbo', defs:[{t:'deixar para depois; adiar'},{t:'não dar importância a; desprezar'}], syns:['adiar','procrastinar']},
+  'deferir': {pos:'Verbo', defs:[{t:'atender ao que se pede; conceder', ex:'O juiz deferiu o pedido.'},{tag:'Desusado', t:'adiar; diferir'}]},
+  'demorar': {pos:'Verbo', defs:[{t:'levar muito tempo para fazer algo ou para acontecer', ex:'O ônibus demorou mais do que o normal.'},{t:'adiar; retardar'}]},
+  'empurrar com a barriga': {pos:'Locução verbal', defs:[{tag:'Informal', t:'adiar indefinidamente uma tarefa ou a solução de um problema', ex:'Ele vem empurrando essa decisão com a barriga há meses.'}], syns:['procrastinar']},
+  'espaçar': {pos:'Verbo', defs:[{t:'deixar intervalo entre coisas ou acontecimentos', ex:'O médico espaçou as consultas.'},{t:'adiar; prorrogar'}]},
+  'protelar': {pos:'Verbo', defs:[{t:'adiar de propósito; retardar', ex:'A defesa tentou protelar o julgamento.'}], syns:['adiar','procrastinar']},
+  'usar de delongas': {pos:'Locução verbal', defs:[{t:'retardar algo de propósito, criando demoras'}]},
+  'excesso': {pos:'Substantivo · masculino', defs:[{t:'aquilo que passa da medida ou do limite', ex:'O excesso de açúcar faz mal à saúde.'}]},
+  'exceção': {pos:'Substantivo · feminino', defs:[{t:'desvio de uma regra ou de um padrão', ex:'Todos chegaram cedo, com exceção do motorista.'},{t:'aquilo que não segue a regra geral'}]},
+  'concessão': {pos:'Substantivo · feminino', defs:[{t:'ato de conceder; permissão'},{tag:'Direito', t:'contrato pelo qual o poder público permite que uma empresa explore um serviço', ex:'A empresa ganhou a concessão da rodovia.'}]},
+  'efêmero': {pos:'Adjetivo', defs:[{t:'que dura pouco; passageiro', ex:'Foi um sucesso efêmero.'},{tag:'Biologia', t:'que vive apenas um dia'}]},
+  'idiossincrasia': {pos:'Substantivo · feminino', defs:[{t:'modo de ser, de agir ou de reagir próprio de uma pessoa', ex:'Acordar cedo aos domingos é uma de suas idiossincrasias.'},{tag:'Medicina', t:'reação individual e incomum de um organismo a uma substância'}]},
+  'ímpeto': {pos:'Substantivo · masculino', defs:[{t:'movimento súbito e forte', ex:'Num ímpeto, levantou-se e saiu da sala.'},{t:'impulso; entusiasmo'}]},
+  'sagaz': {pos:'Adjetivo · dois gêneros', defs:[{t:'que percebe as coisas com rapidez; perspicaz', ex:'Um investigador sagaz repara nos detalhes.'}]}
+};
+const ORDER = Object.keys(DICT);
+const norm = s => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+function lev(a, b) {
+  const m = a.length, n = b.length; let prev = Array.from({length: n + 1}, (_, j) => j);
+  for (let i = 1; i <= m; i++) { const cur = [i]; for (let j = 1; j <= n; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); prev = cur; }
+  return prev[n];
+}
+const HIST0 = [['saudade',0],['resiliência',0],['procrastinar',1],['casa',1],['efêmero',3],['idiossincrasia',5],['ímpeto',8],['sagaz',15]];
+const rel = d => d === 0 ? 'hoje' : d === 1 ? 'ontem' : d < 7 ? d + ' dias atrás' : (Math.round(d / 7) === 1 ? '1 semana atrás' : Math.round(d / 7) + ' semanas atrás');
+const L = {'--bg':'#FFFFFF','--text':'#0A0A0A','--text2':'#5C5C61','--text3':'#6C6C71','--ink':'#0A0A0A','--onink':'#FFFFFF','--fill':'#EFEFF1','--sep':'rgba(0,0,0,.14)','--chipbd':'rgba(0,0,0,.2)','--bar':'rgba(255,255,255,.86)','--sheet':'#FFFFFF','--scrim':'rgba(0,0,0,.32)','--skel':'#EDEDEF','--danger':'#D70015','--dangerbg':'#D70015','--kb':'#D1D4DA','--key':'#FFFFFF','--keysp':'#ABB0BA','--keysh':'rgba(0,0,0,.3)','--kbtext':'#000000'};
+const D = {'--bg':'#000000','--text':'#F5F5F7','--text2':'#A1A1A6','--text3':'#8D8D93','--ink':'#F5F5F7','--onink':'#0A0A0A','--fill':'#1C1C1E','--sep':'rgba(255,255,255,.16)','--chipbd':'rgba(255,255,255,.26)','--bar':'rgba(12,12,12,.82)','--sheet':'#2C2C2E','--scrim':'rgba(0,0,0,.55)','--skel':'#1C1C1E','--danger':'#FF6961','--dangerbg':'#D92D20','--kb':'#2B2B2D','--key':'#6B6B6E','--keysp':'#464648','--keysh':'rgba(0,0,0,.6)','--kbtext':'#FFFFFF'};
+const SERIF = {'--headfont':"ui-serif,'New York',Georgia,serif",'--headsize':'36px','--headweight':'600','--headls':'0'};
+const SANS = {'--headfont':"-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif",'--headsize':'34px','--headweight':'700','--headls':'.2px'};
+
+class Component extends DCLogic {
+  setRoot = el => { if (el) this.rootEl = el; };
+  setScrollEl = el => { if (el) this.scEl = el; };
+  setInputEl = el => { if (el) this.inEl = el; };
+    getScroll() { const s = this.scEl; if (s && s.isConnected) return s; return this.rootEl ? this.rootEl.querySelector('[data-scroll="buscar"]') : null; }
+  getInput() { const s = this.inEl; if (s && s.isConnected) return s; return this.rootEl ? this.rootEl.querySelector('[data-search-input]') : null; }
+  state = this.initial(this.props.screen);
+
+  initial(screen) {
+    const b = {tab:'buscar', query:'', focused:false, real:false, view:'empty', word:null, hist:HIST0.map(([w,d]) => ({w, d})), open:null, drag:null, confirm:false, removing:null, scrolled:false, hScrolled:false};
+    const e = (w, v) => ({...b, query:w, word:w, view:v || 'entry'});
+    switch (screen) {
+      case 'vazio': return {...b, focused:true};
+      case 'sugestoes': return {...b, focused:true, query:'sauda'};
+      case 'verbete': return e('resiliência');
+      case 'sinonimos': return e('procrastinar');
+      case 'longo': return e('casa');
+      case 'naoencontrada': return e('excessão', 'notfound');
+      case 'semconexao': return e('efêmero', 'offline');
+      case 'carregando': return e('efêmero', 'loading');
+      case 'historico': return {...b, tab:'historico', open:'resiliência'};
+      case 'historico-confirmar': return {...b, tab:'historico', confirm:true};
+      case 'historico-vazio': return {...b, tab:'historico', hist:[]};
+      default: return b;
+    }
+  }
+  componentDidMount() { if (this.props.screen === 'longo') this.scrollLongo(0); }
+  scrollLongo(n) {
+    const el = this.getScroll();
+    if (el && el.scrollHeight > el.clientHeight + 100) { el.scrollTop = Math.min(320, el.scrollHeight - el.clientHeight); this.setState({scrolled: true}); if (el.scrollTop > 0) return; }
+    if (n < 40) this.st = setTimeout(() => this.scrollLongo(n + 1), 50);
+  }
+  componentDidUpdate(prev) {
+    if (prev.resetToken !== this.props.resetToken || prev.screen !== this.props.screen) { clearTimeout(this.t); clearTimeout(this.st); this.setState(this.initial(this.props.screen), () => { if (this.props.screen === 'longo') this.scrollLongo(0); else this.toTop(); }); }
+  }
+  componentWillUnmount() { clearTimeout(this.t); clearTimeout(this.st); }
+  toTop() { if (this.getScroll()) this.getScroll().scrollTop = 0; }
+
+  search(raw) {
+    const q = (raw || '').trim(); if (!q) return;
+    const key = ORDER.find(k => norm(k) === norm(q)) || q;
+    clearTimeout(this.t);
+    if (this.getInput()) this.getInput().blur();
+    this.setState({tab:'buscar', query:key, word:key, focused:false, view:'loading', open:null, confirm:false}, () => this.toTop());
+    this.t = setTimeout(() => {
+      if (this.props.offline) return this.setState({view:'offline'});
+      if (DICT[key]) this.setState(s => ({view:'entry', hist:[{w:key, d:0}, ...s.hist.filter(h => h.w !== key)]}));
+      else this.setState({view:'notfound'});
+    }, 650);
+  }
+  rowDown(e, w, tx) {
+    this.p = {w, x:e.clientX, tx0:tx, moved:false, hadOpen:this.state.open && this.state.open !== w};
+    if (e.currentTarget.setPointerCapture) e.currentTarget.setPointerCapture(e.pointerId);
+  }
+  rowMove = e => {
+    const p = this.p; if (!p) return;
+    const dx = e.clientX - p.x;
+    if (!p.moved && Math.abs(dx) < 6) return;
+    p.moved = true;
+    this.setState({drag:{w:p.w, tx:Math.max(-330, Math.min(0, p.tx0 + dx))}, open: this.state.open === p.w ? p.w : null});
+  };
+  rowUp = () => {
+    const p = this.p; this.p = null; if (!p) return;
+    if (!p.moved) {
+      if (p.hadOpen || this.state.open === p.w) return this.setState({open:null});
+      return this.search(p.w);
+    }
+    const tx = this.state.drag ? this.state.drag.tx : 0;
+    if (tx < -220) { this.setState({drag:null}); this.removeRow(p.w); }
+    else this.setState({drag:null, open: tx < -40 ? p.w : null});
+  };
+  removeRow(w) {
+    this.setState({removing:w, open:null});
+    setTimeout(() => this.setState(s => ({hist:s.hist.filter(h => h.w !== w), removing:null})), 230);
+  }
+  type(ch) { this.setState(s => ({query:s.query + ch, focused:true})); }
+
+  renderVals() {
+    const s = this.state, p = this.props;
+    const dark = p.theme === 'escuro';
+    const filled = p.tagStyle === 'preenchida';
+    const themeVars = {display:'contents', ...(dark ? D : L), ...(p.serif === false ? SANS : SERIF),
+      '--tagbg': filled ? (dark ? '#1C1C1E' : '#EFEFF1') : 'transparent',
+      '--tagbd': filled ? 'transparent' : (dark ? 'rgba(255,255,255,.26)' : 'rgba(0,0,0,.2)')};
+    const isBuscar = s.tab === 'buscar';
+    const q = s.query, nq = norm(q);
+    const typing = isBuscar && s.focused && nq.length > 0;
+    let suggestions = [];
+    if (typing) {
+      const m = ORDER.filter(k => norm(k).startsWith(nq)).slice(0, 8);
+      suggestions = m.length ? m.map(k => ({head:k.slice(0, nq.length), tail:k.slice(nq.length), go:() => this.search(k)}))
+        : [{head:'Buscar ', tail:'“' + q.trim() + '”', go:() => this.search(q)}];
+    }
+    const showResult = isBuscar && !typing;
+    const e = DICT[s.word];
+    const entry = e ? {word:s.word, pos:e.pos, defs:e.defs.map((d, i) => ({n:i + 1, text:d.t, tag:d.tag || '', ex:d.ex || ''})),
+      hasSyns:!!(e.syns && e.syns.length), syns:(e.syns || []).map((w, i, a) => ({word:w, sep:i < a.length - 1 ? ', ' : '', go:() => this.search(w)}))} : null;
+    const dym = s.view === 'notfound' ? ORDER.map(k => ({k, d:lev(norm(k), norm(s.word))})).filter(x => x.d <= 3).sort((a, b) => a.d - b.d).slice(0, 3).map(x => ({word:x.k, go:() => this.search(x.k)})) : [];
+    const bar = (w, h, mt) => React.createElement('div', {style:{width:w, height:h, marginTop:mt, borderRadius:6, background:'var(--skel)'}});
+    const skeleton = React.createElement('div', {style:{animation:'dcPulse 1.4s ease-in-out infinite'}},
+      bar('46%', 14, 12), bar('100%', 15, 38), bar('94%', 15, 11), bar('58%', 15, 11), bar('100%', 15, 34), bar('72%', 15, 11));
+    const keys = str => str.split('').map(c => ({c, press:() => this.type(c)}));
+    const predictions = nq ? [{label:'“' + q + '”', go:() => {}}, ...suggestions.filter(x => x.head !== 'Buscar ').slice(0, 2).map(x => ({label:x.head + x.tail, go:x.go}))] : [{label:''},{label:''},{label:''}];
+    while (predictions.length < 3) predictions.push({label:''});
+    predictions.forEach((x, i) => { x.div = i > 0; if (!x.go) x.go = () => {}; });
+    const rows = s.hist.map(h => {
+      const dragging = s.drag && s.drag.w === h.w;
+      const tx = dragging ? s.drag.tx : (s.open === h.w ? -88 : 0);
+      return {word:h.w, when:rel(h.d), tx, h:s.removing === h.w ? 0 : 52,
+        trans: dragging ? 'none' : 'transform .28s cubic-bezier(.2,.8,.2,1)',
+        down: ev => this.rowDown(ev, h.w, tx), del: () => this.removeRow(h.w)};
+    });
+    return {
+      themeVars, isBuscar, isHist: !isBuscar, query:q, word:s.word, focused: isBuscar && s.focused,
+      showKb: isBuscar && s.focused, fakeCaret: isBuscar && s.focused && !s.real,
+      showPlaceholder: !q, hasQuery: !!q,
+      showHint: showResult && s.view === 'empty', showEntry: showResult && s.view === 'entry' && !!entry,
+      showLoading: showResult && s.view === 'loading', showNotFound: showResult && s.view === 'notfound', showOffline: showResult && s.view === 'offline',
+      showSuggest: typing, suggestions, entry: entry || {defs:[], syns:[]}, dym, hasDym: dym.length > 0, skeleton,
+      synChips: p.synStyle !== 'links', synLinks: p.synStyle === 'links',
+      headLine: s.scrolled ? 'var(--sep)' : 'transparent', histLine: s.hScrolled ? 'var(--sep)' : 'transparent',
+      tabBColor: isBuscar ? 'var(--ink)' : 'var(--text3)', tabHColor: isBuscar ? 'var(--text3)' : 'var(--ink)',
+      kb1: keys('qwertyuiop'), kb2: keys('asdfghjkl'), kb3: keys('zxcvbnm'), predictions,
+      rows, hasHist: s.hist.length > 0, noHist: s.hist.length === 0, confirm: !isBuscar && s.confirm,
+      rowMove: this.rowMove, rowUp: this.rowUp,
+      setRoot: this.setRoot, setScrollEl: this.setScrollEl, setInputEl: this.setInputEl,
+      keep: ev => ev.preventDefault(),
+      onInput: ev => this.setState({query: ev.target.value, focused: true}),
+      onFocus: ev => { this.inEl = ev.currentTarget; this.setState({focused: true, real: true}); },
+      onBlur: () => this.setState({real: false}),
+      onKey: ev => { if (ev.key === 'Enter') { ev.preventDefault(); this.search(this.state.query); } },
+      onScroll: ev => { this.scEl = ev.currentTarget; const v = ev.currentTarget.scrollTop > 4; if (v !== this.state.scrolled) this.setState({scrolled: v}); },
+      onHistScroll: ev => { const v = ev.currentTarget.scrollTop > 4; if (v !== this.state.hScrolled) this.setState({hScrolled: v}); },
+      clear: () => { this.setState({query: '', focused: true}); if (this.getInput()) this.getInput().focus(); },
+      cancel: () => { if (this.getInput()) this.getInput().blur(); this.setState(st => ({focused: false, query: st.view !== 'empty' && st.word ? st.word : ''})); },
+      del: () => this.setState(st => ({query: st.query.slice(0, -1)})),
+      space: () => this.type(' '),
+      submitKb: () => this.search(this.state.query),
+      retry: () => this.search(this.state.word),
+      goBuscar: () => { if (isBuscar) this.toTop(); this.setState({tab: 'buscar', confirm: false, open: null}); },
+      goHist: () => { if (this.getInput()) this.getInput().blur(); this.setState({tab: 'historico', focused: false, open: null}); },
+      ctaSearch: () => { this.setState({tab: 'buscar', focused: true, query: '', view: 'empty', word: null}, () => this.getInput() && this.getInput().focus()); },
+      askClear: () => this.setState({confirm: true, open: null}),
+      cancelClear: () => this.setState({confirm: false}),
+      doClear: () => this.setState({hist: [], confirm: false})
+    };
+  }
+}
+</script>
+</body>
+</html>
