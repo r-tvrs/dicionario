@@ -1,10 +1,14 @@
 import { lerVerbete } from './verbete.js';
+import { CATEGORIA, portugues, completar, parecidas } from './sugestoes.js';
 
 const API = 'https://pt.wiktionary.org/w/api.php';
 const $ = (id) => document.getElementById(id);
 const conteudo = $('conteudo');
 const q = $('q');
+const lista = $('sugestoes');
+const cancelar = $('cancelar');
 let buscaAtual = 0;
+let palavraAtual = '';
 
 const el = (tag, classe, texto) => {
   const e = document.createElement(tag);
@@ -30,8 +34,21 @@ async function pagina(titulo) {
   return dados.parse && { titulo: dados.parse.title, verbete: lerVerbete(dados.parse.wikitext) };
 }
 
+async function titulosPt(termo, signal) {
+  const url = `${API}?action=query&format=json&formatversion=2&origin=*&generator=prefixsearch&gpslimit=50&prop=categories&cllimit=max&clcategories=${encodeURIComponent(CATEGORIA)}&gpssearch=${encodeURIComponent(termo)}`;
+  return portugues(await (await fetch(url, { signal })).json());
+}
+
+// Toca numa palavra sugerida: fecha o teclado e abre a definição.
+function ir(palavra) {
+  q.value = palavra;
+  q.blur();
+  buscar(palavra);
+}
+
 async function buscar(palavra) {
   const id = ++buscaAtual;
+  palavraAtual = palavra;
   const esqueleto = setTimeout(() => {
     const sk = el('div', 'esqueleto');
     for (const w of ['46%', '100%', '94%', '58%', '100%', '72%']) {
@@ -62,7 +79,24 @@ async function buscar(palavra) {
   }
   if (id !== buscaAtual) return;
   const verbete = pag?.verbete;
-  if (!verbete?.classes.length) return mostrar(estado('Palavra não encontrada', `Nenhum verbete para “${palavra}”.`));
+  if (!verbete?.classes.length) {
+    const div = estado('Palavra não encontrada', `Nenhum verbete para “${palavra}”.`);
+    mostrar(div);
+    const quis = parecidas(palavra, await titulosPt(palavra).catch(() => []));
+    if (id !== buscaAtual || !quis.length) return;
+    const ul = el('ul');
+    for (const w of quis) {
+      const b = el('button', null, w);
+      b.type = 'button';
+      b.addEventListener('click', () => ir(w));
+      const li = el('li');
+      li.append(b);
+      ul.append(li);
+    }
+    div.append(el('p', 'quis', 'Você quis dizer:'), ul);
+    return;
+  }
+  palavraAtual = pag.titulo;
   const artigo = el('article');
   artigo.append(el('h1', 'palavra', pag.titulo));
   for (const { classe, acepcoes } of verbete.classes) {
@@ -99,6 +133,59 @@ $('busca').addEventListener('submit', (e) => {
   if (!palavra) return;
   q.blur();
   buscar(palavra);
+});
+
+const LUPA = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true" style="flex:none"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="20.5" y2="20.5"/></svg>';
+
+function item(digitado, resto, acao) {
+  const b = el('button');
+  b.type = 'button';
+  b.innerHTML = LUPA;
+  const span = el('span', null, digitado);
+  span.append(el('b', null, resto));
+  b.append(span);
+  // Sem isso o mousedown tira o foco do campo e o teclado fecha antes do clique.
+  b.addEventListener('mousedown', (e) => e.preventDefault());
+  b.addEventListener('click', acao);
+  const li = el('li');
+  li.append(b);
+  return li;
+}
+
+let espera, pedido;
+function fecharSugestoes() {
+  clearTimeout(espera);
+  pedido?.abort();
+  lista.hidden = true;
+}
+
+q.addEventListener('input', () => {
+  fecharSugestoes();
+  const termo = q.value.trim();
+  if (termo.length < 2) return;
+  espera = setTimeout(async () => {
+    const controle = (pedido = new AbortController());
+    let titulos;
+    try {
+      titulos = await titulosPt(termo, controle.signal);
+    } catch {
+      return;
+    }
+    if (controle.signal.aborted) return;
+    const s = completar(termo, titulos);
+    lista.replaceChildren(...(s.length ? s.map((x) => item(x.digitado, x.resto, () => ir(x.titulo))) : [item('Buscar ', `“${termo}”`, () => ir(termo))]));
+    lista.hidden = false;
+  }, 150);
+});
+q.addEventListener('focus', () => (cancelar.hidden = false));
+q.addEventListener('blur', () => {
+  cancelar.hidden = true;
+  fecharSugestoes();
+});
+cancelar.addEventListener('mousedown', (e) => e.preventDefault());
+cancelar.addEventListener('click', () => {
+  q.value = palavraAtual;
+  q.blur();
 });
 
 function aba(nome) {

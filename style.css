@@ -27,7 +27,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   background: var(--bar); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 0.5px solid var(--sep);
 }
+#busca { display: flex; align-items: center; gap: 12px; }
+#cancelar { flex: none; height: 44px; padding: 0 4px; font-size: 17px; color: var(--ink); }
 .campo {
+  flex: 1; min-width: 0;
   height: 44px; border-radius: 12px; background: var(--fill); color: var(--text3);
   display: flex; align-items: center; gap: 8px; padding-left: 12px;
 }
@@ -38,6 +41,18 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .campo input::placeholder { color: var(--text3); }
 .titulo { margin: 0; height: 44px; font-size: 34px; line-height: 41px; font-weight: 700; letter-spacing: .2px; }
 
+.sugestoes {
+  position: fixed; top: calc(env(safe-area-inset-top) + 60px); left: 0; right: 0; bottom: 0; z-index: 2;
+  margin: 0; padding: 0; list-style: none; background: var(--bg); overflow-y: auto;
+}
+.sugestoes button { width: 100%; height: 48px; display: flex; align-items: center; gap: 14px; padding-left: 20px; color: var(--text3); text-align: left; }
+.sugestoes button:active { background: var(--fill); }
+.sugestoes span { flex: 1; min-width: 0; height: 48px; display: flex; align-items: center; border-bottom: 0.5px solid var(--sep); font-size: 17px; color: var(--text2); white-space: pre; overflow: hidden; }
+.sugestoes b { font-weight: 600; color: var(--text); }
+.quis { margin: 32px 0 4px; font-size: 15px; line-height: 20px; font-weight: 600; color: var(--text2); }
+.quis + ul { list-style: none; margin: 0; padding: 0; }
+.quis + ul button { width: 100%; height: 52px; display: flex; align-items: center; border-bottom: 0.5px solid var(--sep); font-size: 17px; text-align: left; }
+.quis + ul button:active { opacity: .5; }
 .conteudo { padding: calc(env(safe-area-inset-top) + 72px) 20px calc(env(safe-area-inset-bottom) + 70px); }
 .dica { margin: 0; padding: 160px 20px 0; text-align: center; font-size: 17px; line-height: 24px; color: var(--text2); }
 
