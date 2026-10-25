@@ -1,0 +1,6 @@
+handoff/
+.agents/
+.claude/
+AGENTS.md
+docs/agents/
+skills-lock.json
